@@ -1,0 +1,12 @@
+root = "."
+tmp_dir = "tmp"
+
+[build]
+cmd = "templ generate ./src/... && go build -o ./tmp/main ./examples/server/main.go"
+bin = "tmp/main"
+include_ext = ["go", "templ"]
+exclude_dir = ["dist", "tmp", "node_modules"]
+delay = 1000
+
+[screen]
+clear_on_rebuild = true

@@ -1,0 +1,11 @@
+{
+  "name": "webcomponents",
+  "version": "1.0.0",
+  "scripts": {
+    "css:build": "tailwindcss -i ./src/styles/main.css -o ./dist/styles.css",
+    "css:watch": "tailwindcss -i ./src/styles/main.css -o ./dist/styles.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.0"
+  }
+}
