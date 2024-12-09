@@ -1,0 +1,69 @@
+package table
+
+import (
+  "fmt"
+  "reflect"
+  "time"
+)
+
+func formatValue(value interface{}, format Formatter) string {
+  switch format {
+    case DateFormat:
+      t, ok := value.(time.Time)
+      if !ok {
+        return fmt.Sprint(value)
+      }
+      return t.Format("02-01-2006")
+    default:
+      return fmt.Sprint(value)
+  }
+}
+
+func getFieldValue(row interface{}, field string) (interface{}, bool) {
+  value := reflect.ValueOf(row).FieldByName(field)
+  if !value.IsValid() || value.IsZero() {
+    return nil, false
+  }
+  return value.Interface(), true
+}
+
+func getRowId(row interface{}, config TableConfig) string{
+  return fmt.Sprint(reflect.ValueOf(row).FieldByName(config.IdField).Interface())
+}
+
+func getCellValue(col Column, row interface{}) string {
+  if value, exists := getFieldValue(row, col.Field); exists {
+    return formatValue(value, col.Format) 
+  } 
+  return col.DefaultValue 
+}
+
+templ Render[T any](data []T, columns []Column, config TableConfig) {
+  <div class="ju-t">
+    <div class="ju-thg">
+      <div class="ju-thr">
+        for _, col := range columns {
+          <div class="ju-thc">
+            { col.Header }
+          </div>
+        }
+      </div>
+    </div>
+    
+    <div class="ju-trg">
+      for _, row := range data {
+        <div class="ju-tr" data-row-id={getRowId(row, config)}>
+          for _, col := range columns {
+            <div class="ju-tc">
+              if col.CustomHTML != nil {
+                @col.CustomHTML(row)
+              } else {
+                { getCellValue(col, row) }
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+}

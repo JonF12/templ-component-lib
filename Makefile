@@ -1,27 +1,28 @@
-.PHONY: all
 all: generate css
 
-.PHONY: generate
+build:
+	@go build -o ./main ./examples/server/main.go
+
 generate:
-templ generate ./src/...
-mkdir -p dist
-cp -r src/components dist/
-find dist -name "*.templ" -type f -delete
+	@templ generate ./src/**/*
+	@mkdir -p dist
+	@cp -r src/ dist/
+	@find dist -name "*.templ" -type f -delete
 
-.PHONY: css
+run:
+	@go run examples/server/main.go
+
 css:
-npm run css:build
+	@npm run css:build
 
-.PHONY: watch
 watch:
-air
+	@air
 
-.PHONY: dev
 dev:
-make generate
-make css
-make watch
+	@make generate
+	@make build
+	@make css
+	@make run
 
-.PHONY: clean
 clean:
-rm -rf dist
+	@rm -rf dist

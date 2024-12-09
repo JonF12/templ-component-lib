@@ -1,0 +1,28 @@
+  /* Table base */
+  .ju-t {
+    @apply table w-full border-collapse border border-gray-300;
+  }
+  /* Table header group */
+  .ju-thg {
+    @apply table-header-group bg-gray-200;
+  }
+  /* Table header row */
+  .ju-thr {
+    @apply table-row;
+  }
+  /* Table header cell */
+  .ju-thc {
+    @apply table-cell font-semibold text-sm text-gray-700 px-4 py-2 border border-gray-300;
+  }
+  /* Table row group */
+  .ju-trg {
+    @apply table-row-group;
+  }
+  /* Table row */
+  .ju-tr {
+    @apply table-row hover:bg-gray-50;
+  }
+  /* Table cell */
+  .ju-tc {
+    @apply table-cell text-sm text-gray-600 px-4 py-2 border border-gray-300;
+  }

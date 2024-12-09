@@ -1,6 +1,5 @@
-/.git/
-dist
 tmp
 node_modules
 *.exe
 .air.toml.tmp
+/dist
