@@ -4,6 +4,26 @@
 @import "./cards/style.css";
 @import "./table/style.css";
 
+.nav-container {
+  @apply fixed top-0 left-0 right-0 bg-white border-b border-gray-200 px-4 py-3;
+}
+
+.nav-list {
+  @apply max-w-7xl mx-auto flex items-center justify-center space-x-32;
+}
+
+.nav-link {
+  @apply  cursor-pointer hover:text-blue-600 font-medium transition-colors;
+}
+
+.page-h1 {
+  @apply text-4xl font-bold mb-6 mt-8;
+}
+
+.page-text {
+  @apply text-gray-700;
+}
+
 .spinner-container {
   position: absolute;
   top: 50%;
