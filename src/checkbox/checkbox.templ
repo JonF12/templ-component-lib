@@ -1,0 +1,34 @@
+package checkbox
+
+type Props struct {
+	Id         string
+	Name       string
+	Label      string
+	Checked    bool
+	IsDisabled bool
+	IsRequired bool
+	ClassName  string
+}
+
+templ Render(props Props) {
+  <label class="form-control pb-4 label flex flex-row">
+    <div class="basis-1/2 flex-row"> <span class="label-text text-gray-600"> { props.Label } </span> </div>
+    <div class="basis-1/2 flex-row">
+      <input
+        type="checkbox"
+        id={ props.Id }
+        class={ props.ClassName + " checkbox" }
+        name={ props.Name }
+        if props.Checked {
+          checked
+        }
+        if props.IsDisabled {
+          disabled
+        }
+        if props.IsRequired {
+          required
+        }
+      />
+    </div>
+  </label>
+}

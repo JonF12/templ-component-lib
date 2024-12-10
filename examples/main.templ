@@ -1,8 +1,11 @@
 package examples
 
 import (
-  table "github.com/JonF12/TemplComponentLib/src/table"
+  "github.com/JonF12/TemplComponentLib/src/table"
   card "github.com/JonF12/TemplComponentLib/src/cards/card1spot"
+  "github.com/JonF12/TemplComponentLib/src/checkbox"
+  "github.com/JonF12/TemplComponentLib/src/input"
+  "github.com/JonF12/TemplComponentLib/src/selector"
 
   )
 
@@ -30,7 +33,7 @@ templ UsersTable() {
 
 templ Card(){
   <div id="card">
-    @card.Render(card.Config{
+    @card.Render(card.Props{
       Heading: "My Card Test",
       ImageUrl: "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?cs=srgb&dl=pexels-thatguycraig000-1563356.jpg&fm=jpg",
       TextContent: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in ante molestie arcu lacinia iaculis. Suspendisse potenti. Fusce et quam sed elit vehicula venenatis sed quis augue. In mauris risus, eleifend vel purus nec, varius sagittis libero. Nulla placerat quis nisi vel lacinia. Aenean accumsan dui eget velit dignissim, eu congue velit blandit. Aliquam lorem lectus, sagittis sed gravida interdum, rutrum sed mauris.",
@@ -42,11 +45,40 @@ templ Card(){
 
 templ Page(){
   @Base(){
-    <h1 class="text text-4xl">Table Component Example </h1>
-    <hr /> <br />
-    @UsersTable()
-    <h1 class="text text-4xl">Card Component Example </h1>
-    <hr /> <br />
-    @Card()
+    //<h1 class="text text-4xl">Table Component Example </h1>
+    //<hr /> <br />
+    //@UsersTable()
+    //<h1 class="text text-4xl">Card Component Example </h1>
+    //<hr /> <br />
+    //@Card()
+    <h1 class="text text-4xl">Form Components Example </h1>
+
+    @checkbox.Render(checkbox.Props{ 
+      Id: "checkbox", 
+      Name: "Test", 
+      Label: "CheckBoxTest", 
+      Checked: true})
+
+    @input.Render(input.Props{ 
+      Name:"Input", 
+      Label:"Test Input",
+      HelperText:"Must be in All Uppercase.",
+    })
+
+    @selector.Render(selector.Props{
+      Name: "country",
+      Label: "Select Country",
+      IsRequired: true,
+      Attributes: templ.Attributes{
+        "hx-post": "/validate/country",
+        "hx-trigger": "change",
+        "hx-target": "#country-error",
+      },
+      }) {
+      <option value="us">United States</option>
+      <option value="ca">Canada</option>
+      <option value="uk">United Kingdom</option>
+    }
+    
   }
 }

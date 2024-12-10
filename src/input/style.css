@@ -1,0 +1,47 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "../common.css";
+
+.ju-input-wrap {
+  @apply relative flex flex-col w-full space-y-2;
+}
+
+.ju-header-row {
+  @apply flex flex-row items-center w-full space-x-4;
+}
+
+.ju-label-wrap {
+  @apply flex flex-row items-center space-x-2;
+}
+
+.ju-required-mark {
+  @apply w-1 h-4 border border-red-500 bg-gradient-to-br from-red-400 rounded-xl;
+}
+
+.ju-input-base {
+  @apply w-full focus:outline-none focus-visible:outline-none px-3 py-2 text-base;
+}
+
+.ju-input-theme {
+  @apply dark:text-white dark:ring-slate-500 bg-white dark:bg-black dark:border-slate-900;
+}
+
+.ju-input-border {
+  @apply border rounded-md peer border-neutral-300;
+}
+
+.ju-input-text {
+  @apply ring-offset-background placeholder:text-slate-400 ju-text-regular;
+}
+
+.ju-input-focus {
+  @apply focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400;
+}
+
+.ju-input-state {
+  @apply disabled:cursor-not-allowed disabled:opacity-50;
+}
+.ju-input {
+  @apply h-8 border ju-input-base ju-input-theme ju-input-border ju-input-text ju-input-focus ju-input-state;
+}

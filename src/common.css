@@ -1,0 +1,12 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Text Styles */
+.ju-text-regular {
+  @apply text-gray-600;
+}
+
+.ju-helper-text {
+  @apply w-full ju-text-regular;
+}

@@ -1,0 +1,50 @@
+package selector
+
+
+type Props struct {
+ Id         string
+ Name       string
+ Label      string
+ Value      string
+ IsDisabled bool
+ IsRequired bool
+ HelperText string
+ Attributes templ.Attributes
+}
+
+templ Render(props Props) {
+ <label class="flex flex-row ju-select-wrap pb-4">
+   <div class="ju-select-header-row basis-1/2">
+     <div class="ju-select-label-wrap">
+       <span class="ju-text-regular">{ props.Label }</span>
+       if props.IsRequired {
+         <span class="ju-select-required-mark right-0">*</span>
+       }
+     </div>
+   </div>
+   <div class="basis-1/2">
+     <select
+       id={props.Id}
+       name={props.Name}
+       class="ju-select-element w-full"
+       if props.Value != ""{
+         value={props.Value}
+       }
+       if props.IsDisabled {
+         disabled 
+       }
+       if props.IsRequired {
+         required
+       }
+       {props.Attributes...}
+     >
+       { children... }
+     </select>
+     if props.HelperText != "" {
+       <p class="ju-helper-text ju-text-regular">
+         <small>{ props.HelperText }</small>
+       </p>
+     }
+   </div>
+ </label>
+}

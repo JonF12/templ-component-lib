@@ -3,8 +3,10 @@ all: generate css
 build:
 	@go build -o ./main ./examples/server/main.go
 
+templ-generate:
+	@templ generate ./src/**/* -f 2>&1 | sed 's/(✗)/\n(✗)/g'
 generate:
-	@templ generate ./src/**/*
+	@make templ-generate
 	@mkdir -p dist
 	@cp -r src/ dist/
 	@find dist -name "*.templ" -type f -delete

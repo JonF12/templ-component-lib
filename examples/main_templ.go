@@ -10,7 +10,10 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import (
 	card "github.com/JonF12/TemplComponentLib/src/cards/card1spot"
-	table "github.com/JonF12/TemplComponentLib/src/table"
+	"github.com/JonF12/TemplComponentLib/src/checkbox"
+	"github.com/JonF12/TemplComponentLib/src/input"
+	"github.com/JonF12/TemplComponentLib/src/selector"
+	"github.com/JonF12/TemplComponentLib/src/table"
 )
 
 type testRow struct {
@@ -91,7 +94,7 @@ func Card() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = card.Render(card.Config{
+		templ_7745c5c3_Err = card.Render(card.Props{
 			Heading:     "My Card Test",
 			ImageUrl:    "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?cs=srgb&dl=pexels-thatguycraig000-1563356.jpg&fm=jpg",
 			TextContent: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in ante molestie arcu lacinia iaculis. Suspendisse potenti. Fusce et quam sed elit vehicula venenatis sed quis augue. In mauris risus, eleifend vel purus nec, varius sagittis libero. Nulla placerat quis nisi vel lacinia. Aenean accumsan dui eget velit dignissim, eu congue velit blandit. Aliquam lorem lectus, sagittis sed gravida interdum, rutrum sed mauris.",
@@ -142,19 +145,62 @@ func Page() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h1 class=\"text text-4xl\">Table Component Example </h1><hr><br>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("      <h1 class=\"text text-4xl\">Form Components Example </h1>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = UsersTable().Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = checkbox.Render(checkbox.Props{
+				Id:      "checkbox",
+				Name:    "Test",
+				Label:   "CheckBoxTest",
+				Checked: true}).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <h1 class=\"text text-4xl\">Card Component Example </h1><hr><br>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = Card().Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = input.Render(input.Props{
+				Name:       "Input",
+				Label:      "Test Input",
+				HelperText: "Must be in All Uppercase.",
+			}).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Var5 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+				templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+				templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+				if !templ_7745c5c3_IsBuffer {
+					defer func() {
+						templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+						if templ_7745c5c3_Err == nil {
+							templ_7745c5c3_Err = templ_7745c5c3_BufErr
+						}
+					}()
+				}
+				ctx = templ.InitializeContext(ctx)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<option value=\"us\">United States</option> <option value=\"ca\">Canada</option> <option value=\"uk\">United Kingdom</option>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				return templ_7745c5c3_Err
+			})
+			templ_7745c5c3_Err = selector.Render(selector.Props{
+				Name:       "country",
+				Label:      "Select Country",
+				IsRequired: true,
+				Attributes: templ.Attributes{
+					"hx-post":    "/validate/country",
+					"hx-trigger": "change",
+					"hx-target":  "#country-error",
+				},
+			}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

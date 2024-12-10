@@ -1,0 +1,71 @@
+package input
+
+type Props struct {
+	Id          string
+	Type        string
+	Label       string
+	Name        string
+	Placeholder string
+	HelperText  string
+	Class       string
+	Value       string
+	HideLabel   bool
+	Required    bool
+	IsDisabled  bool
+	HXPost      string
+	HXTrigger   string
+	HXTarget    string
+	HXSwap      string
+	HXIndicator string
+}
+
+templ Render(props Props) {
+  <label class="flex flex-row pb-4 ju-input-wrap">
+    <div class="basis-1/2 ju-header-row">
+      if !props.HideLabel {
+        <div class="ju-label-wrap">
+          if props.Required {
+            <div class="ju-required-mark"></div>
+          }
+          <p class="ju-text-regular">{ props.Label }</p>
+        </div>
+       }
+    </div>
+    <div class="basis-1/2">
+      <input
+        class={ "ju-input w-full ju-text-regular border-2" + " " + props.Class }
+        type="text"
+        id={ props.Id }
+        name={ props.Name }
+        placeholder={ props.Placeholder }
+
+        if props.IsDisabled {
+          disabled
+        }
+        if props.Required {
+          required
+        }
+        if props.HXPost != "" {
+          hx-post={ props.HXPost }
+        }  
+        if props.HXTrigger != "" {
+          hx-trigger={ props.HXTrigger }
+        }
+        if props.HXTarget != "" {
+          hx-target={ props.HXTarget }
+        }
+        if props.HXSwap != "" {
+          hx-swap={ props.HXSwap }
+        }
+        if props.HXIndicator != "" {
+          hx-indicator={ props.HXIndicator }
+        }
+        />
+        if props.HelperText != "" {
+          <p class="ju-helper-text ju-text-regular">
+            <small>{ props.HelperText } </small>
+          </p>
+         }
+    </div>
+  </label>
+}
