@@ -4,3 +4,4 @@ node_modules
 .air.toml.tmp
 /dist
 main
+**/*_templ.go

@@ -54,25 +54,29 @@ templ Page(){
     <h1 class="text text-4xl">Form Components Example </h1>
 
     @checkbox.Render(checkbox.Props{ 
-      Id: "checkbox", 
-      Name: "Test", 
-      Label: "CheckBoxTest", 
-      Checked: true})
+      Label: "Currently Paying",
+      Checked: true,
+      Attributes: templ.Attributes{
+        "id": "checkbox-1",
+        "name": "checkbox",
+      },
+    })
 
     @input.Render(input.Props{ 
-      Name:"Input", 
-      Label:"Test Input",
+      Label:"Tax Identifier",
       HelperText:"Must be in All Uppercase.",
+      Attributes: templ.Attributes{
+        "name": "Input",
+        "value": "Some Value",
+      },
     })
 
     @selector.Render(selector.Props{
-      Name: "country",
-      Label: "Select Country",
-      IsRequired: true,
+      Label: "Country",
+      Required: true,
       Attributes: templ.Attributes{
-        "hx-post": "/validate/country",
-        "hx-trigger": "change",
-        "hx-target": "#country-error",
+        "name": "country",
+        "autocomplete": "off",
       },
       }) {
       <option value="us">United States</option>

@@ -1,13 +1,11 @@
 package checkbox
 
 type Props struct {
-	Id         string
-	Name       string
 	Label      string
 	Checked    bool
-	IsDisabled bool
-	IsRequired bool
+	Disabled   bool
 	ClassName  string
+  Attributes templ.Attributes
 }
 
 templ Render(props Props) {
@@ -16,18 +14,10 @@ templ Render(props Props) {
     <div class="basis-1/2 flex-row">
       <input
         type="checkbox"
-        id={ props.Id }
         class={ props.ClassName + " checkbox" }
-        name={ props.Name }
-        if props.Checked {
-          checked
-        }
-        if props.IsDisabled {
-          disabled
-        }
-        if props.IsRequired {
-          required
-        }
+        checked?={props.Checked}
+        disabled?={props.Disabled}
+        {props.Attributes...}
       />
     </div>
   </label>
