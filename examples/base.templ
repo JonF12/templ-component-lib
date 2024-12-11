@@ -1,5 +1,7 @@
 package examples
 
+import "github.com/JonF12/TemplComponentLib/dist/src/searchselect"
+
 templ Base() {
 	<!DOCTYPE html>
 	<html lang="en">
@@ -9,11 +11,10 @@ templ Base() {
 			<title>My App</title>
 			<link href="assets/css/output.css" rel="stylesheet"/>
 			<script src="assets/js/htmx.min.js"></script>
+			@searchselect.Script()
 		</head>
 		<body>
-			<main class="ju-main">
-				{ children... }
-			</main>
+			{ children... }
 		</body>
 	</html>
 }

@@ -2,6 +2,7 @@ package examples
 
 import (
 	"github.com/JonF12/TemplComponentLib/src/table"
+	"github.com/JonF12/TemplComponentLib/src/cards/cardimage"
 	card "github.com/JonF12/TemplComponentLib/src/cards/card1spot"
 	// "github.com/JonF12/TemplComponentLib/src/checkbox"
 	//  "github.com/JonF12/TemplComponentLib/src/input"
@@ -50,5 +51,25 @@ templ Page() {
 		//<h1 class="text text-4xl">Card Component Example </h1>
 		//<hr /> <br />
 		//@Card()
+		@cardimage.Container() {
+			@cardimage.Render(&cardimage.Props{
+				Heading:  "Grow fruit",
+				Text:     "Explore the range of fruits you can grow in pots or the garden",
+				ImageUrl: "https://i0.wp.com/post.medicalnewstoday.com/wp-content/uploads/sites/3/2022/07/what_to_know_apples_green_red_1296x728_header-1024x575.jpg?w=1155&h=1528",
+				Link:     "/grow-fruit",
+			})
+			@cardimage.Render(&cardimage.Props{
+				Heading:  "Grow fruit",
+				Text:     "Explore the range of fruits you can grow in pots or the garden",
+				ImageUrl: "https://i0.wp.com/post.medicalnewstoday.com/wp-content/uploads/sites/3/2022/07/what_to_know_apples_green_red_1296x728_header-1024x575.jpg?w=1155&h=1528",
+				Link:     "/grow-fruit",
+			})
+			@cardimage.Render(&cardimage.Props{
+				Heading:  "Grow fruit",
+				Text:     "Explore the range of fruits you can grow in pots or the garden",
+				ImageUrl: "https://i0.wp.com/post.medicalnewstoday.com/wp-content/uploads/sites/3/2022/07/what_to_know_apples_green_red_1296x728_header-1024x575.jpg?w=1155&h=1528",
+				Link:     "/grow-fruit",
+			})
+		}
 	}
 }

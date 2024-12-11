@@ -11,74 +11,84 @@ import (
 	"github.com/JonF12/TemplComponentLib/examples/models"
 	"github.com/JonF12/TemplComponentLib/src/buttonprimary"
 	"strconv"
+	"github.com/JonF12/TemplComponentLib/src/hero"
+	"github.com/JonF12/TemplComponentLib/src/address"
+	"github.com/JonF12/TemplComponentLib/src/address"
 )
 
 templ FormsPage(customer *models.Customer) {
 	@Base() {
-		@hdmain.Render(&hdmain.Props{Text: "Employment Consolidation Form"})
-		<form id="form123123" class="form-default" hx-post="/addcustomer" hx-target="main" hx-swap="outerHTML">
-			@hdsub1.Render(&hdsub1.Props{Text: "Enter details here"})
-			@checkbox.Render(&checkbox.Props{
-				Label:   "Currently Paying",
-				Checked: customer.Paying,
-				Name:    "customer-ispaying",
-				Attributes: templ.Attributes{
-					"autocomplete": "off",
-					"id":           "checkbox-1",
-				},
-			})
-			@input.Render(&input.Props{
-				Label:      "Tax Identifier",
-				Required:   true,
-				HelperText: "Must be in All Uppercase.",
-				Name:       "customer-taxidentifier",
-				Attributes: templ.Attributes{
-					"placeholder":  "Enter Value",
-					"autocomplete": "off",
-					"value":        customer.TaxIdentifier,
-				},
-			})
-			@selector.Render(&selector.Props{
-				Label:    "Country",
-				Required: true,
-				Name:     "customer-countrycode",
-				Attributes: templ.Attributes{
-					"autocomplete": "off",
-				},
-			}) {
-				@selector.Option("us", "United States", customer.CountryCode)
-				@selector.Option("ca", "Canada", customer.CountryCode)
-				@selector.Option("uk", "United Kingdom", customer.CountryCode)
-			}
-			@dateinput.Render(&dateinput.Props{
-				Label:      "Paying Date",
-				Required:   true,
-				Name:       "customer-payingdate",
-				HelperText: "This is found on page 31 of the tax form",
-				Attributes: templ.Attributes{
-					"autocomplete": "off",
-					"value":        customer.PayingDate.Format("2006-01-02"),
-				},
-			})
-			@dropzone.Render(&dropzone.Props{
-				Label:     "Upload Documents",
-				Name:      "customer-image",
-				Id:        "dropzone-image",
-				Required:  true,
-				Accept:    "image/*",
-				UploadUrl: "dropzone-upload",
-				DeleteUrl: "dropzone-delete/%s/",
-				Disabled:  customer.FileId.Valid,
-				FileId:    strconv.FormatInt(customer.FileId.Int64, 10),
-				FileName:  customer.FileName,
-			})
-			<div class="w-full text-right">
-				@buttonprimary.Render(&buttonprimary.Props{
+		@hero.Render(&hero.Props{ImageUrl: "https://wallpaperswide.com/download/windows_10_hero_4k-wallpaper-3840x1200.jpg"})
+		<main class="ju-main">
+			@hdmain.Render(&hdmain.Props{Text: "Employment Consolidation Form"})
+			<form id="form123123" class="form-default" hx-post="/addcustomer" hx-target="main" hx-swap="outerHTML">
+				@hdsub1.Render(&hdsub1.Props{Text: "Enter details here"})
+				@checkbox.Render(&checkbox.Props{
+					Label:   "Currently Paying",
+					Checked: customer.Paying,
+					Name:    "customer-ispaying",
 					Attributes: templ.Attributes{
-						"type": "submit",
+						"autocomplete": "off",
+						"id":           "checkbox-1",
 					},
 				})
-			</div>
-		</form>
+				@input.Render(&input.Props{
+					Label:      "Tax Identifier",
+					Required:   true,
+					HelperText: "Must be in All Uppercase.",
+					Name:       "customer-taxidentifier",
+					Attributes: templ.Attributes{
+						"placeholder":  "Enter Value",
+						"autocomplete": "off",
+						"value":        customer.TaxIdentifier,
+					},
+				})
+				@selector.Render(&selector.Props{
+					Label:    "Country",
+					Required: true,
+					Name:     "customer-countrycode",
+					Attributes: templ.Attributes{
+						"autocomplete": "off",
+					},
+				}) {
+					@selector.Option("us", "United States", customer.CountryCode)
+					@selector.Option("ca", "Canada", customer.CountryCode)
+					@selector.Option("uk", "United Kingdom", customer.CountryCode)
+				}
+				@dateinput.Render(&dateinput.Props{
+					Label:      "Paying Date",
+					Required:   true,
+					Name:       "customer-payingdate",
+					HelperText: "This is found on page 31 of the tax form",
+					Attributes: templ.Attributes{
+						"autocomplete": "off",
+						"value":        customer.PayingDate.Format("2006-01-02"),
+					},
+				})
+				@address.Render(&address.Props{
+					NamePrefix: "",
+					Subheading: "Shipping Address",
+				})
+				@dropzone.Render(&dropzone.Props{
+					Label:     "Upload Documents",
+					Name:      "customer-image",
+					Id:        "dropzone-image",
+					Required:  true,
+					Accept:    "image/*",
+					UploadUrl: "dropzone-upload",
+					DeleteUrl: "dropzone-delete/%s/",
+					Disabled:  customer.FileId.Valid,
+					FileId:    strconv.FormatInt(customer.FileId.Int64, 10),
+					FileName:  customer.FileName,
+				})
+				<div class="w-full text-right">
+					@buttonprimary.Render(&buttonprimary.Props{
+						Attributes: templ.Attributes{
+							"type": "submit",
+						},
+					})
+				</div>
+			</form>
+		</main>
 	}
 }

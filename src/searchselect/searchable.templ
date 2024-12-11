@@ -1,0 +1,68 @@
+package searchselect
+
+type Props struct {
+	Name       string
+	Label      string
+	Disabled   bool
+	Required   bool
+	HelperText string
+	Value      string
+	Options    []Option
+	Attributes templ.Attributes
+}
+
+type Option struct {
+	Value string
+	Text  string
+}
+
+func getDisplayText(value string, options []Option) string {
+	for _, opt := range options {
+		if opt.Value == value {
+			return opt.Text
+		}
+	}
+	return ""
+}
+
+templ Render(props *Props) {
+	<label class="flex flex-row ju-select-wrap pb-4">
+		<div class="ju-select-header-row basis-1/2">
+			<div class="ju-select-label-wrap">
+				<span class="ju-text-regular">{ props.Label }</span>
+				if props.Required {
+					<span class="ju-required-mark right-0">*</span>
+				}
+			</div>
+		</div>
+		<div class="basis-1/2 relative">
+			<div class="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<path d="m6 9 6 6 6-6"></path>
+				</svg>
+			</div>
+			<input
+				type="text"
+				class="ju-searchable-select ju-select-element w-full ju-ih"
+				name={ props.Name + "-display" }
+				disabled?={ props.Disabled }
+				required?={ props.Required }
+				value={ getDisplayText(props.Value, props.Options) }
+				autocomplete="off"
+				data-options={ templ.JSONString(props.Options) }
+				{ props.Attributes... }
+			/>
+			<div class="ju-searchable-dropdown absolute w-full bg-white border border-gray-300 mt-1 max-h-60 overflow-y-auto hidden z-50"></div>
+			<input
+				type="hidden"
+				name={ props.Name }
+				value={ props.Value }
+			/>
+			if props.HelperText != "" {
+				<p class="ju-helper-text ju-text-regular">
+					<small>{ props.HelperText }</small>
+				</p>
+			}
+		</div>
+	</label>
+}

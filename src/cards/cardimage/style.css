@@ -1,0 +1,49 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "../../common.css";
+
+
+.ju-imagecard {
+  @apply w-full lg:w-1/3 p-4;
+}
+
+.ju-imagecard-inner {
+  @apply relative w-full h-64 rounded-lg overflow-hidden shadow-lg transition-shadow duration-300;
+}
+
+.ju-imagecard-inner:hover {
+  @apply shadow-xl;
+}
+
+.ju-imagecard-img {
+  @apply absolute inset-0 w-full h-full object-cover transition-transform duration-300;
+}
+
+.ju-imagecard-inner:hover .ju-imagecard-img {
+  @apply scale-105;
+}
+
+.ju-imagecard-overlay {
+  @apply absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10;
+}
+
+.ju-imagecard-content {
+  @apply absolute bottom-0 left-0 right-0 p-6 z-20;
+}
+
+.ju-imagecard-heading {
+  @apply text-white text-xl font-semibold mb-2;
+}
+
+.ju-imagecard-text {
+  @apply text-white/90 text-sm;
+}
+
+.ju-imagecard-link {
+  @apply absolute inset-0 w-full h-full z-30;
+}
+
+.sr-only {
+  @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+}

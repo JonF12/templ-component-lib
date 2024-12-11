@@ -1,0 +1,251 @@
+package searchselect
+
+templ Script() {
+	<script>
+    if (!window.scripts) {
+      window.scripts = {};
+    }
+    
+    window.scripts['searchableSelect'] = { initialized: true };
+    
+    const STYLES = {
+      dropdown: {
+        container: 'absolute w-full bg-white border border-gray-300 mt-1 max-h-60 overflow-y-auto',
+        hidden: 'hidden',
+        visible: '',
+        zIndex: 'z-50'
+      },
+      option: {
+        base: 'p-2 cursor-pointer ju-text-regular',
+        hover: 'hover:bg-gray-100',
+        selected: 'bg-blue-50',
+        highlighted: 'bg-blue-100'
+      },
+      input: {
+        default: 'cursor-pointer',
+        typing: 'cursor-text'
+      }
+    };    
+
+    function getDropdownClasses(isHidden = true) {
+      return `${STYLES.dropdown.container} ${isHidden ? STYLES.dropdown.hidden : ''} ${STYLES.dropdown.zIndex}`;
+    }
+
+    function getOptionClasses(isSelected = false) {
+      return `${STYLES.option.base} ${STYLES.option.hover} ${isSelected ? STYLES.option.selected : ''}`;
+    }
+    
+    function setupSearchableSelect(input) {
+      const dropdown = input.nextElementSibling;
+      const hiddenInput = dropdown.nextElementSibling;
+      const allOptions = JSON.parse(input.dataset.options || '[]');
+      let activeIndex = -1;
+      let visibleOptions = [];
+      const MAX_OPTIONS = 5;
+
+      // Add pointer cursor by default
+      input.classList.add(STYLES.input.default);
+
+
+      function initializeValue() {
+        const initialValue = hiddenInput.value;
+        if (initialValue) {
+          const matchingOption = allOptions.find(opt => opt.Value === initialValue);
+          if (matchingOption) {
+            input.value = matchingOption.Text;
+          }
+        }
+
+      }
+
+      function getFilteredOptions(searchText = '') {
+        const searchLower = searchText.toLowerCase();
+        const exactMatches = [];
+        const startsWithMatches = [];
+        const containsMatches = [];
+        const remainingOptions = [];
+
+        allOptions.forEach(opt => {
+            const textLower = opt.Text.toLowerCase();
+
+            if (searchText && textLower === searchLower) {
+            exactMatches.push(opt);
+            } else if (searchText && textLower.startsWith(searchLower)) {
+            startsWithMatches.push(opt);
+            } else if (searchText && textLower.includes(searchLower)) {
+            containsMatches.push(opt);
+            } else {
+            remainingOptions.push(opt);
+            }
+            });
+
+        // Sort non-exact matches alphabetically
+        startsWithMatches.sort((a, b) => a.Text.localeCompare(b.Text));
+        containsMatches.sort((a, b) => a.Text.localeCompare(b.Text));
+        remainingOptions.sort((a, b) => a.Text.localeCompare(b.Text));
+
+        // Combine all matches in priority order
+        return [...exactMatches, ...startsWithMatches, ...containsMatches, ...remainingOptions]
+          .slice(0, MAX_OPTIONS);
+      }
+      
+
+      function validateInput() {
+        const currentValue = input.value;
+        const isValid = allOptions.some(opt => opt.Text.toLowerCase() === currentValue.toLowerCase());
+        
+        if (!isValid) {
+          input.value = '';
+          hiddenInput.value = '';
+          input.classList.remove(STYLES.input.typing);
+          input.classList.add(STYLES.input.default);
+        }
+      }
+      
+      function updateDropdown(searchText = '', isInitialOpen = false) {
+        dropdown.innerHTML = '';
+        // If it's initial open, ignore the search text to show all options
+        visibleOptions = isInitialOpen ? getFilteredOptions('') : getFilteredOptions(searchText);
+        
+        activeIndex = visibleOptions.length > 0 ? 0 : -1;
+        
+        visibleOptions.forEach((option, index) => {
+          const item = document.createElement('div');
+          item.className = getOptionClasses(option.Value === hiddenInput.value);
+          item.textContent = option.Text;
+          item.dataset.index = index;
+          
+          item.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            selectOption(index);
+          });
+          
+          dropdown.appendChild(item);
+        });
+        
+        if (visibleOptions.length > 0) {
+          dropdown.className = getDropdownClasses(false);
+          updateHighlight();
+        } else {
+          dropdown.className = getDropdownClasses(true);
+        }
+      }
+
+
+      function selectOption(index) {
+        if (index >= 0 && index < visibleOptions.length) {
+          const option = visibleOptions[index];
+          input.value = option.Text;
+          hiddenInput.value = option.Value;
+          closeDropdown();
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+          activeIndex = index;
+          resetToDefaultState();
+        }
+      }
+
+      function resetToDefaultState() {
+        // Remove typing cursor
+        input.classList.remove(STYLES.input.typing);
+        // Add pointer cursor
+        input.classList.add(STYLES.input.default);
+        // Clear any selection that might interfere with clicking
+        input.blur();
+      }
+
+      
+      function closeDropdown() {
+        dropdown.className = getDropdownClasses(true);
+      }
+      
+      function updateHighlight() {
+        const items = dropdown.querySelectorAll('div');
+        items.forEach(item => {
+          item.className = getOptionClasses();
+        });
+        if (activeIndex >= 0) {
+          const activeItem = items[activeIndex];
+          if (activeItem) {
+            activeItem.className = `${getOptionClasses()} ${STYLES.option.highlighted}`;
+            activeItem.scrollIntoView({ block: 'nearest' });
+          }
+        }
+      }
+      input.addEventListener('focus', () => {
+        // Show all options when focusing, regardless of current value
+        updateDropdown('', true);
+        if (!input.value) {
+          input.classList.remove(STYLES.input.typing);
+          input.classList.add(STYLES.input.default);
+        } else {
+          // Only switch to typing cursor if user starts typing
+          input.classList.remove(STYLES.input.default);
+          input.classList.add(STYLES.input.typing);
+        }
+      });
+
+      input.addEventListener('input', () => {
+        updateDropdown(input.value, false);
+        // Switch to typing cursor when user starts typing
+        input.classList.remove(STYLES.input.default);
+        input.classList.add(STYLES.input.typing);
+      });
+
+      input.addEventListener('blur', () => {
+        setTimeout(() => {
+          validateInput();
+          closeDropdown();
+          resetToDefaultState(); // Reset state on blur
+        }, 200);
+      });
+            
+      input.addEventListener('keydown', (e) => {
+        switch(e.key) {
+          case 'ArrowDown':
+            e.preventDefault();
+            activeIndex = Math.min(activeIndex + 1, visibleOptions.length - 1);
+            if (activeIndex === -1) activeIndex = 0;
+            updateHighlight();
+            break;
+          case 'ArrowUp':
+            e.preventDefault();
+            activeIndex = Math.max(activeIndex - 1, 0);
+            updateHighlight();
+            break;
+          case 'Enter':
+            e.preventDefault();
+            if (visibleOptions.length > 0) {
+              selectOption(activeIndex >= 0 ? activeIndex : 0);
+            }
+            closeDropdown();
+            break;
+          case 'Escape':
+            closeDropdown();
+            validateInput();
+            break;
+          case 'Tab':
+            closeDropdown();
+            validateInput();
+            break;
+        }
+      });
+      
+      document.addEventListener('click', (e) => {
+        if (!input.parentElement.contains(e.target)) {
+          closeDropdown();
+          validateInput();
+        }
+      });
+
+      initializeValue();
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.ju-searchable-select').forEach(setupSearchableSelect);
+    });
+    
+    document.addEventListener('htmx:afterSettle', (e) => {
+      e.target.querySelectorAll('.ju-searchable-select').forEach(setupSearchableSelect);
+    });
+  </script>
+}

@@ -1,0 +1,12 @@
+package hero
+
+type Props struct {
+	ImageUrl  string
+	ClassName string
+}
+
+templ Render(props *Props) {
+	<div class="w-full h-[150px] lg:h-[350px] ">
+		<img class="object-cover w-full h-full" src={ props.ImageUrl }/>
+	</div>
+}

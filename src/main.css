@@ -2,6 +2,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 @import "./cards/style.css";
+@import "./cards/cardimage/style.css";
 @import "./table/style.css";
 @import "./selector/style.css";
 @import "./dropzone/style.css";

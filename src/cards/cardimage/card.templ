@@ -1,0 +1,36 @@
+package cardimage
+
+type Props struct {
+	ImageUrl string
+	Heading  string
+	Link     string
+	Text     string
+}
+
+templ Render(props *Props) {
+	<div class="ju-imagecard">
+		<div class="ju-imagecard-inner">
+			<img
+				src={ props.ImageUrl }
+				alt={ props.Heading }
+				class="ju-imagecard-img"
+			/>
+			<div class="ju-imagecard-overlay">
+				<div class="ju-imagecard-content">
+					<h3 class="ju-imagecard-heading">{ props.Heading }</h3>
+					if props.Text != "" {
+						<p class="ju-imagecard-text">{ props.Text }</p>
+					}
+				</div>
+			</div>
+			<a
+				href={ templ.URL(props.Link) }
+				class="ju-imagecard-link"
+				hx-get={ props.Link }
+				hx-push-url="true"
+			>
+				<span class="sr-only">{ props.Heading }</span>
+			</a>
+		</div>
+	</div>
+}

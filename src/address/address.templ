@@ -1,0 +1,82 @@
+package address
+
+import (
+	"github.com/JonF12/TemplComponentLib/dist/src/input"
+	//"github.com/JonF12/TemplComponentLib/dist/src/selector"
+	"github.com/JonF12/TemplComponentLib/dist/src/searchselect"
+	"github.com/JonF12/TemplComponentLib/dist/src/headings/hdsub1"
+)
+
+type Props struct {
+	NamePrefix string
+	Subheading string
+}
+
+func getPrefix(prefix string) string {
+	if prefix != "" {
+		prefix += "-"
+	}
+	return prefix
+}
+
+templ Render(props *Props) {
+	<div class="w-full">
+		if props.Subheading == "" {
+			@hdsub1.Render(&hdsub1.Props{Text: "Address"})
+		} else {
+			@hdsub1.Render(&hdsub1.Props{Text: props.Subheading})
+		}
+		@input.Render(&input.Props{
+			Label:    "Address",
+			Name:     getPrefix(props.NamePrefix) + "address-1",
+			Required: true,
+			Attributes: templ.Attributes{
+				"autocomplete": "off",
+			},
+		})
+		@input.Render(&input.Props{
+			Label: "Address Line 2",
+			Name:  getPrefix(props.NamePrefix) + "address-2",
+			Attributes: templ.Attributes{
+				"autocomplete": "off",
+			},
+		})
+		@input.Render(&input.Props{
+			Label:    "City",
+			Name:     getPrefix(props.NamePrefix) + "address-city",
+			Required: true,
+			Attributes: templ.Attributes{
+				"autocomplete": "off",
+			},
+		})
+		@input.Render(&input.Props{
+			Label: "County",
+			Name:  getPrefix(props.NamePrefix) + "address-county",
+			Attributes: templ.Attributes{
+				"autocomplete": "off",
+			},
+		})
+		@input.Render(&input.Props{
+			Label:    "Post Code",
+			Name:     getPrefix(props.NamePrefix) + "address-zipcode",
+			Required: true,
+			Attributes: templ.Attributes{
+				"autocomplete": "off",
+			},
+		})
+		@searchselect.Render(&searchselect.Props{
+			Name:     getPrefix(props.NamePrefix) + "address-country",
+			Label:    "Country",
+			Required: true,
+			Value:    "gb",
+			Attributes: templ.Attributes{
+				"placeholder": "Select country",
+			},
+			Options: []searchselect.Option{
+				{Value: "gb", Text: "United Kingdom"},
+				{Value: "us", Text: "United States"},
+				{Value: "ca", Text: "Canada"},
+			},
+		})
+	</div>
+}
