@@ -1,0 +1,10 @@
+package hdsub1
+
+type Props struct {
+	ClassName string
+	Text      string
+}
+
+templ Render(props *Props) {
+	<h2 class={ props.ClassName + " text text-3xl py-2" }>{ props.Text }</h2>
+}

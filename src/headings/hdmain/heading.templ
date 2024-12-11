@@ -1,0 +1,11 @@
+package hdmain
+
+type Props struct {
+	ClassName string
+	Text      string
+}
+
+templ Render(props *Props) {
+	<h1 class={ props.ClassName + " text text-center text-4xl py-2" }>{ props.Text }</h1>
+	<hr class="py-5"/>
+}

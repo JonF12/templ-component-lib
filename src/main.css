@@ -4,6 +4,7 @@
 @import "./cards/style.css";
 @import "./table/style.css";
 @import "./selector/style.css";
+@import "./dropzone/style.css";
 @import "./common.css";
 
 .nav-container {
@@ -15,7 +16,7 @@
 }
 
 .nav-link {
-  @apply  cursor-pointer hover:text-blue-600 font-medium transition-colors;
+  @apply cursor-pointer hover:text-blue-600 font-medium transition-colors;
 }
 
 .page-h1 {
@@ -45,6 +46,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -55,11 +57,11 @@
   opacity: 0;
   transition: opacity 200ms ease-in;
 }
+
 .htmx-request .htmx-indicator {
   opacity: 1;
 }
+
 .htmx-request.htmx-indicator {
   opacity: 1;
 }
-
-

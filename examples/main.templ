@@ -1,88 +1,54 @@
 package examples
 
 import (
-  "github.com/JonF12/TemplComponentLib/src/table"
-  card "github.com/JonF12/TemplComponentLib/src/cards/card1spot"
-  "github.com/JonF12/TemplComponentLib/src/checkbox"
-  "github.com/JonF12/TemplComponentLib/src/input"
-  "github.com/JonF12/TemplComponentLib/src/selector"
+	"github.com/JonF12/TemplComponentLib/src/table"
+	card "github.com/JonF12/TemplComponentLib/src/cards/card1spot"
+	// "github.com/JonF12/TemplComponentLib/src/checkbox"
+	//  "github.com/JonF12/TemplComponentLib/src/input"
+	//  "github.com/JonF12/TemplComponentLib/src/selector"
 
-  )
+)
 
 type testRow struct {
-    Name string
-    Id   int
+	Name string
+	Id   int
 }
 
 templ UsersTable() {
-  <div id="users-table">
-    @table.Render(
-      []testRow{
-        {Name: "Test", Id: 1},
-        {Name: "Test2", Id: 2},
-        {Name: "Tes3", Id: 3}, 
-      },
-      []table.Column{
-        {Header: "Name", Field: "Name"},
-        {Header: "ID", Field: "Id"},
-      },
-      table.TableConfig{IdField: "Id"},
-      )
-  </div>
+	<div id="users-table">
+		@table.Render(
+			[]testRow{
+				{Name: "Test", Id: 1},
+				{Name: "Test2", Id: 2},
+				{Name: "Tes3", Id: 3},
+			},
+			[]table.Column{
+				{Header: "Name", Field: "Name"},
+			},
+			table.TableConfig{IdField: "Id"},
+		)
+	</div>
 }
 
-templ Card(){
-  <div id="card">
-    @card.Render(card.Props{
-      Heading: "My Card Test",
-      ImageUrl: "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?cs=srgb&dl=pexels-thatguycraig000-1563356.jpg&fm=jpg",
-      TextContent: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in ante molestie arcu lacinia iaculis. Suspendisse potenti. Fusce et quam sed elit vehicula venenatis sed quis augue. In mauris risus, eleifend vel purus nec, varius sagittis libero. Nulla placerat quis nisi vel lacinia. Aenean accumsan dui eget velit dignissim, eu congue velit blandit. Aliquam lorem lectus, sagittis sed gravida interdum, rutrum sed mauris.",
-      ButtonText: "Click Here",
-      ButtonLink: "/someurl",
-    })
-  </div>
+templ Card() {
+	<div id="card">
+		@card.Render(card.Props{
+			Heading:     "My Card Test",
+			ImageUrl:    "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?cs=srgb&dl=pexels-thatguycraig000-1563356.jpg&fm=jpg",
+			TextContent: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in ante molestie arcu lacinia iaculis. Suspendisse potenti. Fusce et quam sed elit vehicula venenatis sed quis augue. In mauris risus, eleifend vel purus nec, varius sagittis libero. Nulla placerat quis nisi vel lacinia. Aenean accumsan dui eget velit dignissim, eu congue velit blandit. Aliquam lorem lectus, sagittis sed gravida interdum, rutrum sed mauris.",
+			ButtonText:  "Click Here",
+			ButtonLink:  "/someurl",
+		})
+	</div>
 }
 
-templ Page(){
-  @Base(){
-    //<h1 class="text text-4xl">Table Component Example </h1>
-    //<hr /> <br />
-    //@UsersTable()
-    //<h1 class="text text-4xl">Card Component Example </h1>
-    //<hr /> <br />
-    //@Card()
-    <h1 class="text text-4xl">Form Components Example </h1>
-
-    @checkbox.Render(checkbox.Props{ 
-      Label: "Currently Paying",
-      Checked: true,
-      Attributes: templ.Attributes{
-        "id": "checkbox-1",
-        "name": "checkbox",
-      },
-    })
-
-    @input.Render(input.Props{ 
-      Label:"Tax Identifier",
-      HelperText:"Must be in All Uppercase.",
-      Attributes: templ.Attributes{
-        "name": "Input",
-        "value": "Some Value",
-      },
-    })
-
-    @selector.Render(selector.Props{
-      Label: "Country",
-      Required: true,
-      Attributes: templ.Attributes{
-        "name": "country",
-        "autocomplete": "off",
-      },
-      }) {
-      <option value="us">United States</option>
-      <option value="ca">Canada</option>
-      <option value="uk">United Kingdom</option>
-    }
-    
-  }
+templ Page() {
+	@Base() {
+		//<h1 class="text text-4xl">Table Component Example </h1>
+		//<hr /> <br />
+		//@UsersTable()
+		//<h1 class="text text-4xl">Card Component Example </h1>
+		//<hr /> <br />
+		//@Card()
+	}
 }

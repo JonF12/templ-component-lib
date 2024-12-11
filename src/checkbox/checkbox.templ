@@ -2,23 +2,44 @@ package checkbox
 
 type Props struct {
 	Label      string
+	Name       string
 	Checked    bool
 	Disabled   bool
 	ClassName  string
-  Attributes templ.Attributes
+	Attributes templ.Attributes
 }
 
-templ Render(props Props) {
-  <label class="form-control pb-4 label flex flex-row">
-    <div class="basis-1/2 flex-row"> <span class="label-text text-gray-600"> { props.Label } </span> </div>
-    <div class="basis-1/2 flex-row">
-      <input
-        type="checkbox"
-        class={ props.ClassName + " checkbox" }
-        checked?={props.Checked}
-        disabled?={props.Disabled}
-        {props.Attributes...}
-      />
-    </div>
-  </label>
+func getValue(checked bool) string {
+	if checked {
+		return "true"
+	}
+	return "false"
+}
+
+templ Render(props *Props) {
+	<label class="form-control pb-4 label flex flex-row">
+		<div class="basis-1/2 flex-row"><span class="label-text text-gray-600">{ props.Label } </span> </div>
+		<div class="basis-1/2 flex-row">
+			<input
+				type="hidden"
+				name={ props.Name }
+				value={ getValue(props.Checked) }
+				autocomplete="off"
+				data-hx-include="false"
+			/>
+			<input
+				type="checkbox"
+				class={ props.ClassName + " checkbox" }
+				if props.Checked {
+					checked
+				}
+				if props.Disabled {
+					disabled
+				}
+				hx-include="false"
+				onchange="this.previousElementSibling.value = this.checked"
+				{ props.Attributes... }
+			/>
+		</div>
+	</label>
 }

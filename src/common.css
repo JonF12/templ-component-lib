@@ -10,3 +10,21 @@
 .ju-helper-text {
   @apply w-full ju-text-regular;
 }
+
+.ju-required-mark {
+  @apply text-red-300;
+}
+
+/* common input */
+.ju-ih {
+  @apply h-10 px-2 rounded-md border border-gray-600;
+}
+
+/* Default mobile widths */
+.form-default {
+  @apply w-auto lg:w-1/2;
+}
+
+.ju-main {
+  @apply mx-4 sm:mx-10 md:mx-20 xl:mx-40 mt-10 sm:mt-16 md:mt-20;
+}

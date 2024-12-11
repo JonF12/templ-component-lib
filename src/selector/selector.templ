@@ -1,38 +1,39 @@
 package selector
 
-
 type Props struct {
- Label      string
- Disabled   bool
- Required   bool
- HelperText string
- Attributes templ.Attributes
+	Name       string
+	Label      string
+	Disabled   bool
+	Required   bool
+	HelperText string
+	Attributes templ.Attributes
 }
 
-templ Render(props Props) {
- <label class="flex flex-row ju-select-wrap pb-4">
-   <div class="ju-select-header-row basis-1/2">
-     <div class="ju-select-label-wrap">
-       <span class="ju-text-regular">{ props.Label }</span>
-       if props.Required {
-         <span class="ju-select-required-mark right-0">*</span>
-       }
-     </div>
-   </div>
-   <div class="basis-1/2">
-     <select
-       class="ju-select-element w-full"
-       disabled?={props.Disabled}
-       required?={props.Required}
-       {props.Attributes...}
-     >
-       { children... }
-     </select>
-     if props.HelperText != "" {
-       <p class="ju-helper-text ju-text-regular">
-         <small>{ props.HelperText }</small>
-       </p>
-     }
-   </div>
- </label>
+templ Render(props *Props) {
+	<label class="flex flex-row ju-select-wrap pb-4">
+		<div class="ju-select-header-row basis-1/2">
+			<div class="ju-select-label-wrap">
+				<span class="ju-text-regular">{ props.Label }</span>
+				if props.Required {
+					<span class="ju-required-mark right-0">*</span>
+				}
+			</div>
+		</div>
+		<div class="basis-1/2">
+			<select
+				class="ju-select-element w-full ju-ih"
+				name={ props.Name }
+				disabled?={ props.Disabled }
+				required?={ props.Required }
+				{ props.Attributes... }
+			>
+				{ children... }
+			</select>
+			if props.HelperText != "" {
+				<p class="ju-helper-text ju-text-regular">
+					<small>{ props.HelperText }</small>
+				</p>
+			}
+		</div>
+	</label>
 }

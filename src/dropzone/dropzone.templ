@@ -1,0 +1,123 @@
+package dropzone
+
+import "fmt"
+import "encoding/json"
+
+type Props struct {
+	Id           string
+	Name         string
+	Label        string
+	ErrorMessage string
+	Accept       string
+	Required     bool
+	Disabled     bool
+	FileName     string
+	FileId       string
+	UploadUrl    string
+	DeleteUrl    string
+}
+
+func getHeaders(props *Props) string {
+	headers := map[string]string{
+		"dropzone-label":     props.Label,
+		"dropzone-required":  fmt.Sprint(props.Required),
+		"dropzone-accept":    props.Accept,
+		"dropzone-id":        props.Id,
+		"dropzone-name":      props.Name,
+		"dropzone-uploadurl": props.UploadUrl,
+		"dropzone-deleteurl": props.DeleteUrl,
+		"dropzone-filename":  props.FileName,
+		"dropzone-fileid":    props.FileId,
+	}
+	jsonHeaders, _ := json.Marshal(headers)
+	return string(jsonHeaders)
+}
+
+func getCursorPointer(isDisabled bool) string {
+	if isDisabled {
+		return ""
+	}
+	return "cursor-pointer hover:bg-gray-50 "
+}
+
+templ Render(props *Props) {
+	<div class="dropzone-container w-full pb-4 ju-dropzone-wrap" hx-headers={ getHeaders(props) }>
+		<div class="w-full ju-dropzone-header">
+			<div class="ju-dropzone-label-wrap">
+				<span class="ju-text-regular">{ props.Label }</span>
+				if props.Required {
+					<span class="ju-required-mark">*</span>
+				}
+			</div>
+		</div>
+		<div class="w-full">
+			<label
+				for={ props.Id }
+				class={ "ju-dropzone-area w-full flex flex-col " + getCursorPointer(props.Disabled) }
+			>
+				<input
+					type="hidden"
+					name={ props.Name + "-id" }
+					if props.FileId != "" {
+						value={ props.FileId }
+					}
+				/>
+				<input
+					type="hidden"
+					name={ props.Name + "-filename" }
+					if props.FileName != "" {
+						value={ props.FileName }
+					}
+				/>
+				<input
+					id={ props.Id }
+					name={ props.Name }
+					type="file"
+					class="hidden"
+					disabled?={ props.Disabled }
+					required?={ props.Required }
+					hx-target="closest .dropzone-container"
+					hx-swap="outerHTML"
+					hx-encoding="multipart/form-data"
+					hx-post={ props.UploadUrl }
+					if props.Accept != "" {
+						accept={ props.Accept }
+					}
+				/>
+				<svg class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+				</svg>
+				if props.FileId != "" {
+					<button
+						type="button"
+						class="absolute top-2 right-2 p-1 rounded-full text-red-300"
+						hx-delete={ fmt.Sprintf(props.DeleteUrl, props.FileId) }
+						hx-target="closest .dropzone-container"
+						hx-swap="outerHTML"
+						hx-params="none"
+					>
+						Delete
+					</button>
+					if props.FileName != "" {
+						<p class="mb-2 text-sm text-gray-500">
+							{ props.FileName }
+						</p>
+					} else {
+						<p class="mb-2 text-sm text-gray-500">
+							File Uploaded
+						</p>
+					}
+				} else {
+					<p class="mb-2 text-sm text-gray-500">
+						<strong>Click to upload</strong> or drag and drop
+					</p>
+				}
+			</label>
+			if props.ErrorMessage != "" {
+				<p class="ju-dropzone-error mt-2 text-sm text-red-600 dark:text-red-500">
+					{ props.ErrorMessage }
+				</p>
+			}
+		</div>
+	</div>
+}

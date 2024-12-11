@@ -1,0 +1,25 @@
+ @import "tailwindcss/base";
+ @import "tailwindcss/components";
+ @import "tailwindcss/utilities";
+ @import "../common.css";
+
+ .ju-date-wrap {
+   @apply relative flex flex-col w-full space-y-2;
+ }
+
+ .ju-date-header-row {
+   @apply flex flex-row items-center justify-between w-full;
+ }
+
+ .ju-date-label-wrap {
+   @apply flex flex-row items-center space-x-2;
+ }
+
+ .ju-date-input {
+   @apply w-full px-3 py-2 text-base bg-white border rounded-md border-neutral-300 ju-text-regular;
+   @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50;
+ }
+
+ .ju-date-input::-webkit-calendar-picker-indicator {
+   @apply dark:invert cursor-pointer;
+ }

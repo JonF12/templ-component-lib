@@ -1,19 +1,19 @@
 package examples
 
 templ Base() {
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="utf-8"/>
-      <meta name="viewport" content="width=device-width,initial-scale=1"/>
-      <title>My App</title>
-      <link href="assets/css/output.css" rel="stylesheet"/>
-      <script src="assets/js/htmx.min.js"></script>
-    </head>
-    <body>
-      <main class="mx-4 sm:mx-10 md:mx-20 xl:mx-40 mt-10 sm:mt-16 md:mt-20">
-        { children... }
-      </main>
-    </body>
-  </html>
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="utf-8"/>
+			<meta name="viewport" content="width=device-width,initial-scale=1"/>
+			<title>My App</title>
+			<link href="assets/css/output.css" rel="stylesheet"/>
+			<script src="assets/js/htmx.min.js"></script>
+		</head>
+		<body>
+			<main class="ju-main">
+				{ children... }
+			</main>
+		</body>
+	</html>
 }

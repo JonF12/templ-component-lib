@@ -1,19 +1,21 @@
-package input
+package dateinput
 
 type Props struct {
-	Label      string
 	Name       string
+	Label      string
 	HelperText string
 	Class      string
 	Required   bool
 	Disabled   bool
+	Min        string `default:"1900-01-01"`
+	Max        string `default:"2099-12-31"`
 	Attributes templ.Attributes
 }
 
 templ Render(props *Props) {
-	<label class="flex flex-row pb-4 ju-input-wrap">
-		<div class="basis-1/2 ju-header-row">
-			<div class="ju-label-wrap">
+	<label class="flex flex-row pb-4 ju-date-wrap">
+		<div class="basis-1/2 ju-date-header-row">
+			<div class="ju-date-label-wrap">
 				<span class="ju-text-regular">{ props.Label }</span>
 				if props.Required {
 					<span class="ju-required-mark right-0">*</span>
@@ -22,11 +24,17 @@ templ Render(props *Props) {
 		</div>
 		<div class="basis-1/2">
 			<input
-				class={ "ju-input w-full ju-text-regular border-2 ju-ih" + " " + props.Class }
-				type="text"
-				name={ props.Name }
+				class={ "ju-date-input w-full ju-text-regular border-2 ju-ih" + " " + props.Class }
+				type="date"
 				disabled?={ props.Disabled }
 				required?={ props.Required }
+				name={ props.Name }
+				if props.Min != "" {
+					min={ props.Min }
+				}
+				if props.Max != "" {
+					max={ props.Max }
+				}
 				{ props.Attributes... }
 			/>
 			if props.HelperText != "" {

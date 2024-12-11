@@ -1,0 +1,14 @@
+package buttonprimary
+
+type Props struct {
+	Attributes templ.Attributes
+}
+
+templ Render(props *Props) {
+	<button
+		class="px-6 py-3 relative text-lg font-medium text-white bg-gray-600 hover:bg-gray-700 rounded-lg shadow-sm mt-4 w-32 transition-colors"
+		{ props.Attributes... }
+	>
+		Submit
+	</button>
+}
