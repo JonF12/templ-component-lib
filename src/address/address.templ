@@ -72,11 +72,7 @@ templ Render(props *Props) {
 			Attributes: templ.Attributes{
 				"placeholder": "Select country",
 			},
-			Options: []searchselect.Option{
-				{Value: "gb", Text: "United Kingdom"},
-				{Value: "us", Text: "United States"},
-				{Value: "ca", Text: "Canada"},
-			},
+			Options: searchselect.GetCountryOptions(),
 		})
 	</div>
 }

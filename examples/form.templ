@@ -9,18 +9,18 @@ import (
 	"github.com/JonF12/TemplComponentLib/src/dateinput"
 	"github.com/JonF12/TemplComponentLib/src/dropzone"
 	"github.com/JonF12/TemplComponentLib/examples/models"
-	"github.com/JonF12/TemplComponentLib/src/buttonprimary"
+	"github.com/JonF12/TemplComponentLib/src/button"
 	"strconv"
 	"github.com/JonF12/TemplComponentLib/src/hero"
-	"github.com/JonF12/TemplComponentLib/src/address"
 	"github.com/JonF12/TemplComponentLib/src/address"
 )
 
 templ FormsPage(customer *models.Customer) {
 	@Base() {
-		@hero.Render(&hero.Props{ImageUrl: "https://wallpaperswide.com/download/windows_10_hero_4k-wallpaper-3840x1200.jpg"})
-		<main class="ju-main">
+		@hero.Render(&hero.Props{ImageUrl: "https://wallpaperswide.com/download/windows_10_hero_4k-wallpaper-3840x1200.jpg"}) {
 			@hdmain.Render(&hdmain.Props{Text: "Employment Consolidation Form"})
+		}
+		<main class="ju-main">
 			<form id="form123123" class="form-default" hx-post="/addcustomer" hx-target="main" hx-swap="outerHTML">
 				@hdsub1.Render(&hdsub1.Props{Text: "Enter details here"})
 				@checkbox.Render(&checkbox.Props{
@@ -82,7 +82,8 @@ templ FormsPage(customer *models.Customer) {
 					FileName:  customer.FileName,
 				})
 				<div class="w-full text-right">
-					@buttonprimary.Render(&buttonprimary.Props{
+					@button.Render(button.Primary, &button.Props{
+						Text: "Update",
 						Attributes: templ.Attributes{
 							"type": "submit",
 						},

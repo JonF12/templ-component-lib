@@ -1,0 +1,113 @@
+package button
+
+type ButtonType int
+
+const (
+	Primary ButtonType = iota
+	Secondary
+	Danger
+	Success
+)
+
+type Props struct {
+	Attributes  templ.Attributes
+	Text        string
+	IsHyperlink bool
+}
+
+templ renderPrimary(props *Props) {
+	<button
+		class="px-6 py-3 relative text-lg font-medium text-white bg-gray-600 hover:bg-gray-700 rounded-lg shadow-sm mt-4 w-32 transition-colors"
+		{ props.Attributes... }
+	>
+		{ props.Text }
+	</button>
+}
+
+templ renderPrimaryHyperlink(props *Props) {
+	<a
+		class="px-6 py-3 relative text-lg font-medium text-white bg-gray-600 hover:bg-gray-700 rounded-lg shadow-sm mt-4 w-32 transition-colors"
+		{ props.Attributes... }
+	>
+		{ props.Text }
+	</a>
+}
+
+templ renderSecondary(props *Props) {
+	<button
+		class="px-8 py-3 relative text-lg font-medium text-gray-800 bg-white hover:bg-gray-50 rounded-full border-2 border-gray-800 transition-colors"
+		{ props.Attributes... }
+	>
+		{ props.Text }
+	</button>
+}
+
+templ renderSecondaryHyperlink(props *Props) {
+	<a
+		class="px-8 py-3 relative text-lg font-medium text-gray-800 bg-white hover:bg-gray-50 rounded-full border-2 border-gray-800 transition-colors"
+		{ props.Attributes... }
+	>
+		{ props.Text }
+	</a>
+}
+
+templ renderDanger(props *Props) {
+	<button
+		class="px-6 py-3 relative text-lg font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-sm mt-4 w-32 transition-colors"
+		{ props.Attributes... }
+	>
+		{ props.Text }
+	</button>
+}
+
+templ renderDangerHyperlink(props *Props) {
+	<a
+		class="px-6 py-3 relative text-lg font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-sm mt-4 w-32 transition-colors"
+		{ props.Attributes... }
+	>
+		{ props.Text }
+	</a>
+}
+
+templ renderSuccess(props *Props) {
+	<button
+		class="px-6 py-3 relative text-lg font-medium text-white bg-green-600 hover:bg-green-700 rounded-lg shadow-sm mt-4 w-32 transition-colors"
+		{ props.Attributes... }
+	>
+		{ props.Text }
+	</button>
+}
+
+templ renderSuccessHyperlink(props *Props) {
+	<a
+		class="px-6 py-3 relative text-lg font-medium text-white bg-green-600 hover:bg-green-700 rounded-lg shadow-sm mt-4 w-32 transition-colors"
+		{ props.Attributes... }
+	>
+		{ props.Text }
+	</a>
+}
+
+func Render(buttonType ButtonType, props *Props) templ.Component {
+	switch buttonType {
+	case Secondary:
+		if props.IsHyperlink {
+			return renderSecondaryHyperlink(props)
+		}
+		return renderSecondary(props)
+	case Danger:
+		if props.IsHyperlink {
+			return renderDangerHyperlink(props)
+		}
+		return renderDanger(props)
+	case Success:
+		if props.IsHyperlink {
+			return renderSuccessHyperlink(props)
+		}
+		return renderSuccess(props)
+	default:
+		if props.IsHyperlink {
+			return renderPrimaryHyperlink(props)
+		}
+		return renderPrimary(props)
+	}
+}

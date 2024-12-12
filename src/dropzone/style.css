@@ -16,7 +16,7 @@
 }
 
 .ju-dropzone-area {
-  @apply transition-colors duration-200 bg-white border-neutral-300 ju-text-regular disabled:cursor-not-allowed disabled:opacity-50 items-center justify-center p-8 border-2 border-dashed rounded-lg relative;
+  @apply transition-colors duration-200 bg-gray-50 border-neutral-300 ju-text-regular disabled:cursor-not-allowed disabled:opacity-50 items-center justify-center p-8 border-2 border-dashed rounded-lg relative;
 }
 
 .ju-dropzone-area:hover {

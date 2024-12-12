@@ -10,8 +10,8 @@ type Props struct {
 }
 
 templ Render(props *Props) {
-	<label class="flex flex-row ju-select-wrap pb-4">
-		<div class="ju-select-header-row basis-1/2">
+	<label class="md:flex md:flex-row ju-select-wrap pb-4">
+		<div class="basis-full py-2 md:py-0 ju-select-header-row">
 			<div class="ju-select-label-wrap">
 				<span class="ju-text-regular">{ props.Label }</span>
 				if props.Required {
@@ -19,9 +19,9 @@ templ Render(props *Props) {
 				}
 			</div>
 		</div>
-		<div class="basis-1/2">
+		<div class="basis-full py-2 md:py-0">
 			<select
-				class="ju-select-element w-full ju-ih"
+				class="ju-select-element ju-text-regular cursor-pointer w-full ju-ih"
 				name={ props.Name }
 				disabled?={ props.Disabled }
 				required?={ props.Required }

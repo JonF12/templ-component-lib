@@ -26,8 +26,8 @@ func getDisplayText(value string, options []Option) string {
 }
 
 templ Render(props *Props) {
-	<label class="flex flex-row ju-select-wrap pb-4">
-		<div class="ju-select-header-row basis-1/2">
+	<label class="md:flex md:flex-row ju-select-wrap pb-4">
+		<div class="basis-full ju-select-header-row py-2 md:py-0">
 			<div class="ju-select-label-wrap">
 				<span class="ju-text-regular">{ props.Label }</span>
 				if props.Required {
@@ -35,7 +35,7 @@ templ Render(props *Props) {
 				}
 			</div>
 		</div>
-		<div class="basis-1/2 relative">
+		<div class="basis-full relative py-2 md:py-0">
 			<div class="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 					<path d="m6 9 6 6 6-6"></path>
@@ -43,7 +43,7 @@ templ Render(props *Props) {
 			</div>
 			<input
 				type="text"
-				class="ju-searchable-select ju-select-element w-full ju-ih"
+				class="ju-searchable-select ju-text-regular ju-select-element w-full ju-ih"
 				name={ props.Name + "-display" }
 				disabled?={ props.Disabled }
 				required?={ props.Required }
@@ -52,7 +52,7 @@ templ Render(props *Props) {
 				data-options={ templ.JSONString(props.Options) }
 				{ props.Attributes... }
 			/>
-			<div class="ju-searchable-dropdown absolute w-full bg-white border border-gray-300 mt-1 max-h-60 overflow-y-auto hidden z-50"></div>
+			<div class="ju-searchable-dropdown absolute w-full bg-white border border-gray-300 rounded-2xl mt-1 max-h-60 overflow-y-auto hidden z-50"></div>
 			<input
 				type="hidden"
 				name={ props.Name }

@@ -4,10 +4,8 @@ import (
 	"github.com/JonF12/TemplComponentLib/src/table"
 	"github.com/JonF12/TemplComponentLib/src/cards/cardimage"
 	card "github.com/JonF12/TemplComponentLib/src/cards/card1spot"
-	// "github.com/JonF12/TemplComponentLib/src/checkbox"
-	//  "github.com/JonF12/TemplComponentLib/src/input"
-	//  "github.com/JonF12/TemplComponentLib/src/selector"
-
+	"github.com/JonF12/TemplComponentLib/dist/src/headings/hdmain"
+	"github.com/JonF12/TemplComponentLib/dist/src/hero"
 )
 
 type testRow struct {
@@ -32,15 +30,13 @@ templ UsersTable() {
 }
 
 templ Card() {
-	<div id="card">
-		@card.Render(card.Props{
-			Heading:     "My Card Test",
-			ImageUrl:    "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?cs=srgb&dl=pexels-thatguycraig000-1563356.jpg&fm=jpg",
-			TextContent: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in ante molestie arcu lacinia iaculis. Suspendisse potenti. Fusce et quam sed elit vehicula venenatis sed quis augue. In mauris risus, eleifend vel purus nec, varius sagittis libero. Nulla placerat quis nisi vel lacinia. Aenean accumsan dui eget velit dignissim, eu congue velit blandit. Aliquam lorem lectus, sagittis sed gravida interdum, rutrum sed mauris.",
-			ButtonText:  "Click Here",
-			ButtonLink:  "/someurl",
-		})
-	</div>
+	@card.Render(&card.Props{
+		Heading:     "My Card Test",
+		ImageUrl:    "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?cs=srgb&dl=pexels-thatguycraig000-1563356.jpg&fm=jpg",
+		TextContent: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in ante molestie arcu lacinia iaculis. Suspendisse potenti. Fusce et quam sed elit vehicula venenatis sed quis augue. In mauris risus, eleifend vel purus nec, varius sagittis libero. Nulla placerat quis nisi vel lacinia. Aenean accumsan dui eget velit dignissim, eu congue velit blandit. Aliquam lorem lectus, sagittis sed gravida interdum, rutrum sed mauris.",
+		ButtonText:  "Click Here",
+		ButtonLink:  "/someurl",
+	})
 }
 
 templ Page() {
@@ -50,25 +46,32 @@ templ Page() {
 		//@UsersTable()
 		//<h1 class="text text-4xl">Card Component Example </h1>
 		//<hr /> <br />
-		//@Card()
+		@hero.Render(&hero.Props{ImageUrl: "https://wallpaperswide.com/download/windows_10_hero_4k-wallpaper-3840x1200.jpg"}) {
+			@hdmain.Render(&hdmain.Props{Text: "Welcome To My Website"})
+		}
+		@card.Container() {
+			@Card()
+			@Card()
+			@Card()
+		}
 		@cardimage.Container() {
 			@cardimage.Render(&cardimage.Props{
-				Heading:  "Grow fruit",
-				Text:     "Explore the range of fruits you can grow in pots or the garden",
+				Heading:  "See what we can do for you",
+				Text:     "Explore different services you benefit from",
 				ImageUrl: "https://i0.wp.com/post.medicalnewstoday.com/wp-content/uploads/sites/3/2022/07/what_to_know_apples_green_red_1296x728_header-1024x575.jpg?w=1155&h=1528",
-				Link:     "/grow-fruit",
+				Link:     "/some-link",
 			})
 			@cardimage.Render(&cardimage.Props{
-				Heading:  "Grow fruit",
-				Text:     "Explore the range of fruits you can grow in pots or the garden",
+				Heading:  "See what we can do for you",
+				Text:     "Explore different services you could benefit from",
 				ImageUrl: "https://i0.wp.com/post.medicalnewstoday.com/wp-content/uploads/sites/3/2022/07/what_to_know_apples_green_red_1296x728_header-1024x575.jpg?w=1155&h=1528",
-				Link:     "/grow-fruit",
+				Link:     "/some-link",
 			})
 			@cardimage.Render(&cardimage.Props{
-				Heading:  "Grow fruit",
-				Text:     "Explore the range of fruits you can grow in pots or the garden",
+				Heading:  "See what we can do for you",
+				Text:     "Explore different services you could benefit from",
 				ImageUrl: "https://i0.wp.com/post.medicalnewstoday.com/wp-content/uploads/sites/3/2022/07/what_to_know_apples_green_red_1296x728_header-1024x575.jpg?w=1155&h=1528",
-				Link:     "/grow-fruit",
+				Link:     "/some-link",
 			})
 		}
 	}

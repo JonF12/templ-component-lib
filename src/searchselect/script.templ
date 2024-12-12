@@ -16,16 +16,19 @@ templ Script() {
         zIndex: 'z-50'
       },
       option: {
-        base: 'p-2 cursor-pointer ju-text-regular',
+        base: 'p-2 cursor-pointer ju-text-regular bg-white',
         hover: 'hover:bg-gray-100',
-        selected: 'bg-blue-50',
-        highlighted: 'bg-blue-100'
+        // Using a combination of utilities for higher specificity
+        selected: '[&]:bg-blue-50 [&]:!bg-blue-50',
+        highlighted: '[&]:bg-blue-500 [&]:!bg-blue-500 [&]:text-white [&]:!text-white'
       },
       input: {
         default: 'cursor-pointer',
         typing: 'cursor-text'
       }
-    };    
+    };  
+
+ 
 
     function getDropdownClasses(isHidden = true) {
       return `${STYLES.dropdown.container} ${isHidden ? STYLES.dropdown.hidden : ''} ${STYLES.dropdown.zIndex}`;
@@ -60,24 +63,42 @@ templ Script() {
 
       function getFilteredOptions(searchText = '') {
         const searchLower = searchText.toLowerCase();
+        const currentValue = hiddenInput.value;
+
+        // First, get the currently selected option if it exists
+        const selectedOption = allOptions.find(opt => opt.Value === currentValue);
+
+        // Get all other options (excluding selected)
+        const otherOptions = allOptions.filter(opt => opt.Value !== currentValue);
+
+        if (!searchText) {
+          // If no search text (initial open), put selected at top followed by alphabetical
+          const sortedOthers = otherOptions.sort((a, b) => a.Text.localeCompare(b.Text));
+          return selectedOption 
+            ? [selectedOption, ...sortedOthers].slice(0, MAX_OPTIONS)
+            : sortedOthers.slice(0, MAX_OPTIONS);
+        }
+
+        // If searching, use normal filtering logic
         const exactMatches = [];
         const startsWithMatches = [];
         const containsMatches = [];
         const remainingOptions = [];
 
+        // Include all options (including selected) in search
         allOptions.forEach(opt => {
-            const textLower = opt.Text.toLowerCase();
+          const textLower = opt.Text.toLowerCase();
 
-            if (searchText && textLower === searchLower) {
+          if (textLower === searchLower) {
             exactMatches.push(opt);
-            } else if (searchText && textLower.startsWith(searchLower)) {
+          } else if (textLower.startsWith(searchLower)) {
             startsWithMatches.push(opt);
-            } else if (searchText && textLower.includes(searchLower)) {
+          } else if (textLower.includes(searchLower)) {
             containsMatches.push(opt);
-            } else {
+          } else {
             remainingOptions.push(opt);
-            }
-            });
+          }
+        });
 
         // Sort non-exact matches alphabetically
         startsWithMatches.sort((a, b) => a.Text.localeCompare(b.Text));
@@ -110,7 +131,7 @@ templ Script() {
         activeIndex = visibleOptions.length > 0 ? 0 : -1;
         
         visibleOptions.forEach((option, index) => {
-          const item = document.createElement('div');
+          const item = document.createElement('option');
           item.className = getOptionClasses(option.Value === hiddenInput.value);
           item.textContent = option.Text;
           item.dataset.index = index;
@@ -159,7 +180,7 @@ templ Script() {
       }
       
       function updateHighlight() {
-        const items = dropdown.querySelectorAll('div');
+        const items = dropdown.querySelectorAll('option');
         items.forEach(item => {
           item.className = getOptionClasses();
         });

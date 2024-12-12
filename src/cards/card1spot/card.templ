@@ -1,33 +1,50 @@
 package card1spot
 
+import "github.com/JonF12/TemplComponentLib/src/button"
+
 type Props struct {
-  Heading     string
-  ImageUrl    string
-  TextContent string
-  ButtonText  string
-  ButtonLink  string
+	Heading     string
+	ImageUrl    string
+	TextContent string
+	ButtonText  string
+	ButtonLink  string
 }
 
-templ Render(props Props){
-  <div class="ju-card-wrapper">
-    <div class="ju-card-container">
-      <div class="ju-card-image-wrapper">
-        <div class="spinner-container"> <img src="/assets/spinner.svg" class="spinner" alt="Loading..."/></div>
-        <img 
-          class="ju-card-image"
-          alt={ props.Heading }
-          src={ props.ImageUrl }
-          loading="lazy"
-          onload="this.previousElementSibling.style.display = 'none'"
-        />
-      </div>
-      <div class="ju-card-content">
-        <h2 class="ju-card-title"> { props.Heading } </h2>
-        <p class="ju-card-text"> { props.TextContent } </p>
-        if props.ButtonLink != "" && props.ButtonText != "" {
-          <a hx-get={ props.ButtonLink } hx-push-url="true" class="ju-card-button"> { props.ButtonText } </a>
-        }
-      </div>
-    </div>
-  </div>
+templ Render(props *Props) {
+	<div class="ju-card-wrapper">
+		<div class="ju-card-container">
+			<div class="ju-card-image-wrapper">
+				<div class="spinner-container">
+					<img src="/assets/spinner.svg" class="spinner" alt="Loading..."/>
+				</div>
+				<img
+					class="ju-card-image"
+					alt={ props.Heading }
+					src={ props.ImageUrl }
+					loading="lazy"
+					onload="this.previousElementSibling.style.display = 'none'"
+				/>
+			</div>
+			<div class="ju-card-content">
+				<h2 class="ju-card-title">{ props.Heading }</h2>
+				<p class="ju-card-text">{ props.TextContent }</p>
+				if props.ButtonLink != "" && props.ButtonText != "" {
+					<div class="text-right">
+						@button.Render(
+							button.Secondary,
+							&button.Props{
+								Text: props.ButtonText,
+								Attributes: templ.Attributes{
+									"hx-get":      props.ButtonLink,
+									"hx-push-url": "true",
+									"href":        props.ButtonLink,
+								},
+								IsHyperlink: true,
+							},
+						)
+					</div>
+				}
+			</div>
+		</div>
+	</div>
 }

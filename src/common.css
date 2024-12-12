@@ -4,7 +4,7 @@
 
 /* Text Styles */
 .ju-text-regular {
-  @apply text-gray-600;
+  @apply text-gray-900 text-xl;
 }
 
 .ju-helper-text {
@@ -17,7 +17,7 @@
 
 /* common input */
 .ju-ih {
-  @apply h-10 px-2 rounded-md border border-gray-600;
+  @apply h-10 px-2 rounded-md border border-gray-400 bg-gray-50;
 }
 
 /* Default mobile widths */

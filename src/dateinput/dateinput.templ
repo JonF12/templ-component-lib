@@ -13,8 +13,8 @@ type Props struct {
 }
 
 templ Render(props *Props) {
-	<label class="flex flex-row pb-4 ju-date-wrap">
-		<div class="basis-1/2 ju-date-header-row">
+	<label class="md:flex md:flex-row pb-4 ju-date-wrap">
+		<div class="basis-full py-2 md:py-0 ju-date-header-row">
 			<div class="ju-date-label-wrap">
 				<span class="ju-text-regular">{ props.Label }</span>
 				if props.Required {
@@ -22,7 +22,7 @@ templ Render(props *Props) {
 				}
 			</div>
 		</div>
-		<div class="basis-1/2">
+		<div class="basis-full py2 md:py-0">
 			<input
 				class={ "ju-date-input w-full ju-text-regular border-2 ju-ih" + " " + props.Class }
 				type="date"

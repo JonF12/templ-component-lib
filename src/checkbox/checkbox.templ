@@ -17,9 +17,11 @@ func getValue(checked bool) string {
 }
 
 templ Render(props *Props) {
-	<label class="form-control pb-4 label flex flex-row">
-		<div class="basis-1/2 flex-row"><span class="label-text text-gray-600">{ props.Label } </span> </div>
-		<div class="basis-1/2 flex-row">
+	<label class="flex flex-row form-control pb-4 label">
+		<div class="basis-full py-2 md:py-0">
+			<span class="ju-text-regular">{ props.Label } </span>
+		</div>
+		<div class="basis-full py-2 md:py-0 text-center md:text-left">
 			<input
 				type="hidden"
 				name={ props.Name }
