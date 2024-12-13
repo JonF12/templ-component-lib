@@ -1,39 +1,48 @@
 package input
 
+import "github.com/JonF12/TemplComponentLib/src/common"
+
 type Props struct {
-	Label      string
-	Name       string
-	HelperText string
-	Class      string
-	Required   bool
-	Disabled   bool
-	Attributes templ.Attributes
+	Label          string
+	Name           string
+	Type           string
+	HelperText     string
+	Class          string
+	ValidationText string
+	Required       bool
+	Disabled       bool
+	Attributes     templ.Attributes
+}
+
+func getType(inputType string) string {
+	if inputType == "" {
+		return "text"
+	}
+	return inputType
 }
 
 templ Render(props *Props) {
-	<label class="md:flex md:flex-row pb-4 ju-input-wrap">
-		<div class="basis-full py-2 md:py-0 ju-header-row">
-			<div class="ju-label-wrap">
-				<span class="ju-text-regular">{ props.Label }</span>
-				if props.Required {
-					<span class="ju-required-mark right-0">*</span>
-				}
+	<label class="md:flex md:flex-row py-2 ju-input-wrap">
+		if props.Label != "" {
+			<div class="basis-full py-2 md:py-0 ju-header-row">
+				<div class="ju-label-wrap">
+					<span class="ju-text-regular">{ props.Label }</span>
+					if props.Required {
+						<span class="ju-required-mark right-0">*</span>
+					}
+				</div>
 			</div>
-		</div>
+		}
 		<div class="basis-full py-2 md:py-0">
 			<input
 				class={ "ju-input w-full ju-text-regular border-2 ju-ih" + " " + props.Class }
-				type="text"
+				type={ getType(props.Type) }
 				name={ props.Name }
 				disabled?={ props.Disabled }
 				required?={ props.Required }
 				{ props.Attributes... }
 			/>
-			if props.HelperText != "" {
-				<p class="ju-helper-text ju-text-regular">
-					<small>{ props.HelperText }</small>
-				</p>
-			}
+			@common.RenderInputHelperAndValidation(props.HelperText, props.ValidationText)
 		</div>
 	</label>
 }

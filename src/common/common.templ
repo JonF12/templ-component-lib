@@ -1,0 +1,14 @@
+package common
+
+templ RenderInputHelperAndValidation(helper string, validation string) {
+	if helper != "" && validation == "" {
+		<p class="ju-helper-text">
+			<small>{ helper }</small>
+		</p>
+	}
+	if validation != "" {
+		<p class="ju-validation-text">
+			<small>{ validation }</small>
+		</p>
+	}
+}

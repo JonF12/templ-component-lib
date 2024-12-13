@@ -1,16 +1,19 @@
 package selector
 
+import "github.com/JonF12/TemplComponentLib/src/common"
+
 type Props struct {
-	Name       string
-	Label      string
-	Disabled   bool
-	Required   bool
-	HelperText string
-	Attributes templ.Attributes
+	Name           string
+	Label          string
+	Disabled       bool
+	Required       bool
+	HelperText     string
+	ValidationText string
+	Attributes     templ.Attributes
 }
 
 templ Render(props *Props) {
-	<label class="md:flex md:flex-row ju-select-wrap pb-4">
+	<label class="md:flex md:flex-row ju-select-wrap py-2">
 		<div class="basis-full py-2 md:py-0 ju-select-header-row">
 			<div class="ju-select-label-wrap">
 				<span class="ju-text-regular">{ props.Label }</span>
@@ -29,11 +32,7 @@ templ Render(props *Props) {
 			>
 				{ children... }
 			</select>
-			if props.HelperText != "" {
-				<p class="ju-helper-text ju-text-regular">
-					<small>{ props.HelperText }</small>
-				</p>
-			}
+			@common.RenderInputHelperAndValidation(props.HelperText, props.ValidationText)
 		</div>
 	</label>
 }

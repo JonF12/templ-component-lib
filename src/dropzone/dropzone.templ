@@ -4,17 +4,17 @@ import "fmt"
 import "encoding/json"
 
 type Props struct {
-	Id           string
-	Name         string
-	Label        string
-	ErrorMessage string
-	Accept       string
-	Required     bool
-	Disabled     bool
-	FileName     string
-	FileId       string
-	UploadUrl    string
-	DeleteUrl    string
+	Id             string
+	Name           string
+	Label          string
+	ValidationText string
+	Accept         string
+	Required       bool
+	Disabled       bool
+	FileName       string
+	FileId         string
+	UploadUrl      string
+	DeleteUrl      string
 }
 
 func getHeaders(props *Props) string {
@@ -84,9 +84,7 @@ templ Render(props *Props) {
 						accept={ props.Accept }
 					}
 				/>
-				<svg class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-				</svg>
+				<img src="assets/uploadicon.svg" class="w-10 h-10 mb-3 text-gray-400"/>
 				if props.FileId != "" {
 					<button
 						type="button"
@@ -96,7 +94,7 @@ templ Render(props *Props) {
 						hx-swap="outerHTML"
 						hx-params="none"
 					>
-						Delete
+						<img src="/assets/deleteicon.svg" alt="Delete" class="w-5 h-5"/>
 					</button>
 					if props.FileName != "" {
 						<p class="mb-2 text-sm text-gray-500">
@@ -113,9 +111,9 @@ templ Render(props *Props) {
 					</p>
 				}
 			</label>
-			if props.ErrorMessage != "" {
+			if props.ValidationText  != "" {
 				<p class="ju-dropzone-error mt-2 text-sm text-red-600 dark:text-red-500">
-					{ props.ErrorMessage }
+					{ props.ValidationText }
 				</p>
 			}
 		</div>

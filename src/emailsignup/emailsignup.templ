@@ -1,0 +1,64 @@
+package emailsignup
+
+import "github.com/JonF12/TemplComponentLib/src/input"
+import "github.com/JonF12/TemplComponentLib/src/headings/hdsub1"
+import "github.com/JonF12/TemplComponentLib/dist/src/button"
+
+type Props struct {
+	Heading    string
+	Text       string
+	ButtonText string
+	SignUpUrl  string
+}
+
+templ RenderSignedUp(props *Props) {
+	<form class="w-full bg-gray-50 px-4 py-16">
+		<div class="max-w-3xl mx-auto text-center">
+			@hdsub1.Render(&hdsub1.Props{Text: props.Heading})
+			<p class="text-gray-600 mb-8">{ props.Text }</p>
+			<p class="text-gray-600 mb-8">Thank you for signing up</p>
+			<div class="w-full flex flex-col md:flex-row gap-4 items-end"></div>
+			<p class="text-gray-500 text-sm mt-4">
+				By signing up you agree to our User Agreement and Privacy Policy & Cookie Statement.
+			</p>
+		</div>
+	</form>
+}
+
+templ Render(props *Props) {
+	<form hx-post={ props.SignUpUrl } hx-target="outerHTML" class="w-full bg-gray-50 px-4 py-16">
+		<div class="text-center">
+			@hdsub1.Render(&hdsub1.Props{Text: props.Heading})
+			<p class="text-gray-600 mb-8">{ props.Text }</p>
+			<div class="w-full flex flex-col md:flex-row gap-4 items-end">
+				<div class="w-full md:flex-1">
+					@input.Render(&input.Props{
+						Type:  "email",
+						Name:  "email",
+						Label: "",
+						Attributes: templ.Attributes{
+							"type":        "email",
+							"placeholder": "Your e-mail address",
+						},
+						Required: true,
+					})
+				</div>
+				<div class="w-full md:w-auto">
+					@button.Render(
+						button.Secondary,
+						&button.Props{
+							Text:      props.ButtonText,
+							ClassName: "uppercase",
+							Attributes: templ.Attributes{
+								"type": "submit",
+							},
+						},
+					)
+				</div>
+			</div>
+			<p class="text-gray-500 text-sm mt-4">
+				By signing up you agree to our User Agreement and Privacy Policy & Cookie Statement.
+			</p>
+		</div>
+	</form>
+}

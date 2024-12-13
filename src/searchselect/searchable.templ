@@ -1,14 +1,17 @@
 package searchselect
 
+import "github.com/JonF12/TemplComponentLib/src/common"
+
 type Props struct {
-	Name       string
-	Label      string
-	Disabled   bool
-	Required   bool
-	HelperText string
-	Value      string
-	Options    []Option
-	Attributes templ.Attributes
+	Name           string
+	Label          string
+	Disabled       bool
+	Required       bool
+	HelperText     string
+	Value          string
+	ValidationText string
+	Options        []Option
+	Attributes     templ.Attributes
 }
 
 type Option struct {
@@ -26,7 +29,7 @@ func getDisplayText(value string, options []Option) string {
 }
 
 templ Render(props *Props) {
-	<label class="md:flex md:flex-row ju-select-wrap pb-4">
+	<label class="md:flex md:flex-row ju-select-wrap py-2">
 		<div class="basis-full ju-select-header-row py-2 md:py-0">
 			<div class="ju-select-label-wrap">
 				<span class="ju-text-regular">{ props.Label }</span>
@@ -58,11 +61,7 @@ templ Render(props *Props) {
 				name={ props.Name }
 				value={ props.Value }
 			/>
-			if props.HelperText != "" {
-				<p class="ju-helper-text ju-text-regular">
-					<small>{ props.HelperText }</small>
-				</p>
-			}
+			@common.RenderInputHelperAndValidation(props.HelperText, props.ValidationText)
 		</div>
 	</label>
 }

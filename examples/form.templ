@@ -33,10 +33,11 @@ templ FormsPage(customer *models.Customer) {
 					},
 				})
 				@input.Render(&input.Props{
-					Label:      "Tax Identifier",
-					Required:   true,
-					HelperText: "Must be in All Uppercase.",
-					Name:       "customer-taxidentifier",
+					Label:          "Tax Identifier",
+					Required:       true,
+					HelperText:     "Must be in All Uppercase.",
+					Name:           "customer-taxidentifier",
+					ValidationText: "Tax Identifier must be in uppercase",
 					Attributes: templ.Attributes{
 						"placeholder":  "Enter Value",
 						"autocomplete": "off",

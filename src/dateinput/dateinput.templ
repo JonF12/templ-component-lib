@@ -1,19 +1,22 @@
 package dateinput
 
+import "github.com/JonF12/TemplComponentLib/src/common"
+
 type Props struct {
-	Name       string
-	Label      string
-	HelperText string
-	Class      string
-	Required   bool
-	Disabled   bool
-	Min        string `default:"1900-01-01"`
-	Max        string `default:"2099-12-31"`
-	Attributes templ.Attributes
+	Name           string
+	Label          string
+	HelperText     string
+	Class          string
+	ValidationText string
+	Required       bool
+	Disabled       bool
+	Min            string `default:"1900-01-01"`
+	Max            string `default:"2099-12-31"`
+	Attributes     templ.Attributes
 }
 
 templ Render(props *Props) {
-	<label class="md:flex md:flex-row pb-4 ju-date-wrap">
+	<label class="md:flex md:flex-row py-2 ju-date-wrap">
 		<div class="basis-full py-2 md:py-0 ju-date-header-row">
 			<div class="ju-date-label-wrap">
 				<span class="ju-text-regular">{ props.Label }</span>
@@ -37,11 +40,7 @@ templ Render(props *Props) {
 				}
 				{ props.Attributes... }
 			/>
-			if props.HelperText != "" {
-				<p class="ju-helper-text ju-text-regular">
-					<small>{ props.HelperText }</small>
-				</p>
-			}
+			@common.RenderInputHelperAndValidation(props.HelperText, props.ValidationText)
 		</div>
 	</label>
 }

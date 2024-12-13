@@ -2,9 +2,33 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+.keyline-heading {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.keyline-heading::before,
+.keyline-heading::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: #666;
+}
+
 /* Text Styles */
 .ju-text-regular {
   @apply text-gray-900 text-xl;
+}
+
+.ju-validation-text {
+  @apply w-full text-xl text-red-500;
+}
+
+.ju-helper-text {
+  @apply w-full ju-text-regular;
 }
 
 .ju-helper-text {

@@ -113,7 +113,7 @@ func dropzoneUpload(c echo.Context) error {
 	}
 	file, err := c.FormFile(props.Name)
 	if err != nil {
-		props.ErrorMessage = err.Error()
+		props.ValidationText = err.Error()
 		return dropzone.Render(props).Render(c.Request().Context(), c.Response().Writer)
 	}
 	//simulating addition here

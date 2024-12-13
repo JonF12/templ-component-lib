@@ -29,7 +29,7 @@ templ Render(props *Props) {
 				<h2 class="ju-card-title">{ props.Heading }</h2>
 				<p class="ju-card-text">{ props.TextContent }</p>
 				if props.ButtonLink != "" && props.ButtonText != "" {
-					<div class="text-right">
+					<div class="text-right uppercase">
 						@button.Render(
 							button.Secondary,
 							&button.Props{
