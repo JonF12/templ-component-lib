@@ -1,40 +1,20 @@
 package examples
 
 import (
-	"github.com/JonF12/TemplComponentLib/src/table"
+	"github.com/JonF12/TemplComponentLib/src/layout/section"
 	"github.com/JonF12/TemplComponentLib/src/cards/cardimage"
-	card "github.com/JonF12/TemplComponentLib/src/cards/card1spot"
+	card "github.com/JonF12/TemplComponentLib/src/cards/card3spot"
 	"github.com/JonF12/TemplComponentLib/dist/src/headings/hdmain"
 	"github.com/JonF12/TemplComponentLib/dist/src/hero"
 	"github.com/JonF12/TemplComponentLib/src/emailsignup"
+	"github.com/JonF12/TemplComponentLib/internal/helpers"
 )
-
-type testRow struct {
-	Name string
-	Id   int
-}
-
-templ UsersTable() {
-	<div id="users-table">
-		@table.Render(
-			[]testRow{
-				{Name: "Test", Id: 1},
-				{Name: "Test2", Id: 2},
-				{Name: "Tes3", Id: 3},
-			},
-			[]table.Column{
-				{Header: "Name", Field: "Name"},
-			},
-			table.TableConfig{IdField: "Id"},
-		)
-	</div>
-}
 
 templ Card() {
 	@card.Render(&card.Props{
 		Heading:     "My Card Test",
 		ImageUrl:    "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?cs=srgb&dl=pexels-thatguycraig000-1563356.jpg&fm=jpg",
-		TextContent: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in ante molestie arcu lacinia iaculis. Suspendisse potenti. Fusce et quam sed elit vehicula venenatis sed quis augue. In mauris risus, eleifend vel purus nec, varius sagittis libero. Nulla placerat quis nisi vel lacinia. Aenean accumsan dui eget velit dignissim, eu congue velit blandit. Aliquam lorem lectus, sagittis sed gravida interdum, rutrum sed mauris.",
+		TextContent: helpers.LoremIpsumText,
 		ButtonText:  "Click Here",
 		ButtonLink:  "/someurl",
 	})
@@ -42,55 +22,44 @@ templ Card() {
 
 templ Page() {
 	@Base() {
-		//<h1 class="text text-4xl">Table Component Example </h1>
-		//<hr /> <br />
-		//@UsersTable()
-		//<h1 class="text text-4xl">Card Component Example </h1>
-		//<hr /> <br />
 		@hero.Render(&hero.Props{ImageUrl: "https://wallpaperswide.com/download/windows_10_hero_4k-wallpaper-3840x1200.jpg"}) {
 			@hdmain.Render(&hdmain.Props{Text: "Welcome To My Website"})
 		}
-		<section class="bg-white">
-			<div class="max-w-6xl mx-auto">
-				@card.Container() {
-					@Card()
-					@Card()
-					@Card()
-				}
-			</div>
-		</section>
-		<section class="bg-white">
-			<div class="max-w-6xl mx-auto">
-				@cardimage.Container() {
-					@cardimage.Render(&cardimage.Props{
-						Heading:  "See what we can do for you",
-						Text:     "Explore different services you benefit from",
-						ImageUrl: "https://i0.wp.com/post.medicalnewstoday.com/wp-content/uploads/sites/3/2022/07/what_to_know_apples_green_red_1296x728_header-1024x575.jpg?w=1155&h=1528",
-						Link:     "/some-link",
-					})
-					@cardimage.Render(&cardimage.Props{
-						Heading:  "See what we can do for you",
-						Text:     "Explore different services you could benefit from",
-						ImageUrl: "https://i0.wp.com/post.medicalnewstoday.com/wp-content/uploads/sites/3/2022/07/what_to_know_apples_green_red_1296x728_header-1024x575.jpg?w=1155&h=1528",
-						Link:     "/some-link",
-					})
-					@cardimage.Render(&cardimage.Props{
-						Heading:  "See what we can do for you",
-						Text:     "Explore different services you could benefit from",
-						ImageUrl: "https://i0.wp.com/post.medicalnewstoday.com/wp-content/uploads/sites/3/2022/07/what_to_know_apples_green_red_1296x728_header-1024x575.jpg?w=1155&h=1528",
-						Link:     "/some-link",
-					})
-				}
-			</div>
-		</section>
-		<section>
-			<div class="max-w-3xl mx-auto ">
-				@emailsignup.Render(&emailsignup.Props{
-					Heading:    "Our biggest stories, straight to your inbox.",
-					Text:       "Sign up now to get our essential daily brief on politics, entertainment, royals, and more.",
-					ButtonText: "Sign up",
+		@section.Render(&section.Props{ClassName: "bg-white"}) {
+			@card.Container() {
+				@Card()
+				@Card()
+				@Card()
+			}
+		}
+		@section.Render(&section.Props{ClassName: "bg-white"}) {
+			@cardimage.Container() {
+				@cardimage.Render(&cardimage.Props{
+					Heading:  "See what we can do for you",
+					Text:     "Explore different services you benefit from",
+					ImageUrl: "https://i0.wp.com/post.medicalnewstoday.com/wp-content/uploads/sites/3/2022/07/what_to_know_apples_green_red_1296x728_header-1024x575.jpg?w=1155&h=1528",
+					Link:     "/some-link",
 				})
-			</div>
-		</section>
+				@cardimage.Render(&cardimage.Props{
+					Heading:  "See what we can do for you",
+					Text:     "Explore different services you could benefit from",
+					ImageUrl: "https://i0.wp.com/post.medicalnewstoday.com/wp-content/uploads/sites/3/2022/07/what_to_know_apples_green_red_1296x728_header-1024x575.jpg?w=1155&h=1528",
+					Link:     "/some-link",
+				})
+				@cardimage.Render(&cardimage.Props{
+					Heading:  "See what we can do for you",
+					Text:     "Explore different services you could benefit from",
+					ImageUrl: "https://i0.wp.com/post.medicalnewstoday.com/wp-content/uploads/sites/3/2022/07/what_to_know_apples_green_red_1296x728_header-1024x575.jpg?w=1155&h=1528",
+					Link:     "/some-link",
+				})
+			}
+		}
+		@section.Render(&section.Props{Small: true}) {
+			@emailsignup.Render(&emailsignup.Props{
+				Heading:    "Our biggest stories, straight to your inbox.",
+				Text:       "Sign up now to get our essential daily brief on politics, entertainment, royals, and more.",
+				ButtonText: "Sign up",
+			})
+		}
 	}
 }

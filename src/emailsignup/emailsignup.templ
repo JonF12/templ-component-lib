@@ -12,7 +12,7 @@ type Props struct {
 }
 
 templ RenderSignedUp(props *Props) {
-	<form class="w-full bg-gray-50 px-4 py-16">
+	<form class="w-full px-4 py-16">
 		<div class="max-w-3xl mx-auto text-center">
 			@hdsub1.Render(&hdsub1.Props{Text: props.Heading})
 			<p class="text-gray-600 mb-8">{ props.Text }</p>
@@ -26,7 +26,7 @@ templ RenderSignedUp(props *Props) {
 }
 
 templ Render(props *Props) {
-	<form hx-post={ props.SignUpUrl } hx-target="outerHTML" class="w-full bg-gray-50 px-4 py-16">
+	<form hx-post={ props.SignUpUrl } hx-target="outerHTML" class="w-full px-4 py-16">
 		<div class="text-center">
 			@hdsub1.Render(&hdsub1.Props{Text: props.Heading})
 			<p class="text-gray-600 mb-8">{ props.Text }</p>

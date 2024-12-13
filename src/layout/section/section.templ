@@ -1,0 +1,23 @@
+package section
+
+type Props struct {
+	//todo: complete whatever we could want here
+	// color, maximum width etc
+	ClassName string
+	Small     bool //temporary will remove
+}
+
+func getSize(props *Props) string {
+	if props.Small {
+		return "max-w-3xl"
+	}
+	return "max-w-6xl"
+}
+
+templ Render(props *Props) {
+	<section class={ props.ClassName }>
+		<div class={ getSize(props) + " mx-auto" }>
+			{ children... }
+		</div>
+	</section>
+}

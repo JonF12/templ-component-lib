@@ -27,6 +27,7 @@ func main() {
 	e.GET("/assets/*", echo.WrapHandler(fileServer))
 	e.GET("/", renderMain)
 	e.GET("/form", renderForm)
+	e.GET("/article", renderArticle)
 	e.POST("/addcustomer", renderAddCustomer)
 	e.POST("/dropzone-upload", dropzoneUpload)
 	e.DELETE("/dropzone-delete/:id", dropzoneDelete)
@@ -83,6 +84,10 @@ func renderAddCustomer(c echo.Context) error {
 
 func renderMain(c echo.Context) error {
 	return render(c, examples.Page())
+}
+
+func renderArticle(c echo.Context) error {
+	return render(c, examples.Article())
 }
 
 func renderForm(c echo.Context) error {

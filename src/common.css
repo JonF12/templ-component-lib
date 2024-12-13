@@ -23,6 +23,10 @@
   @apply text-gray-900 text-xl;
 }
 
+.ju-text-subtle {
+  @apply text-gray-700 text-lg;
+}
+
 .ju-validation-text {
   @apply w-full text-xl text-red-500;
 }

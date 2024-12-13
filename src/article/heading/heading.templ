@@ -1,0 +1,20 @@
+package heading
+
+type Props struct {
+	Category    string
+	Heading     string
+	Subheading  string
+	AuthorName  string
+	PublishDate string
+}
+
+templ Render(props *Props) {
+	<header class="mb-8">
+		<div class="mb-4 uppercase text-sm tracking-wide text-red-600">{ props.Category } </div>
+		<h1 class="text text-left text-4xl md:text-6xl pb-8">{ props.Heading } </h1>
+		<p class="text-gray-700 text-2xl mb-6">{ props.Subheading } </p>
+		<div class="flex items-center text-md text-gray-600">
+			<span class="uppercase">BY { props.AuthorName }</span> <span class="mx-2">•</span> <time>{ props.PublishDate }</time>
+		</div>
+	</header>
+}

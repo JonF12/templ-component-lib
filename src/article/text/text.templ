@@ -1,0 +1,41 @@
+package text
+
+type Alignment int
+
+const (
+	Left    Alignment = 1
+	Right   Alignment = 2
+	Center  Alignment = 3
+	Justify Alignment = 4
+)
+
+type Props struct {
+	TextContent string
+	RenderRaw   bool //has to be manually enabled for CMS markdown content, e.g bold, italics etc. Otherwise should always be off
+	Alignment   Alignment
+}
+
+func getAlignment(props *Props) string {
+	switch props.Alignment {
+	case Left:
+		return " text-left "
+	case Right:
+		return " text-right "
+	case Center:
+		return " text-center "
+	case Justify:
+		return " text-justify "
+	default:
+		return " text-justify "
+	}
+}
+
+templ Render(props *Props) {
+	<p class={ "prose prose-lg lg:prose-2xl max-w-none pb-5" + " " + getAlignment(props) }>
+		if props.RenderRaw {
+			@templ.Raw(props.TextContent)
+		} else {
+			{ props.TextContent }
+		}
+	</p>
+}

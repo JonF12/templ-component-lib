@@ -1,0 +1,22 @@
+package image
+
+type Props struct {
+	ImageUrl string
+	ImageAlt string
+	Caption  string
+}
+
+templ Render(props *Props) {
+	<figure class="w-full my-6">
+		<img
+			src={ props.ImageUrl }
+			alt={ props.ImageAlt }
+			class={ "rounded-lg " }
+		/>
+		if props.Caption != "" {
+			<figcaption class="prose-md border-l-8  border-l-gray-950 ju-text-subtle mt-2">
+				<p class="pl-2">{ props.Caption }</p>
+			</figcaption>
+		}
+	</figure>
+}

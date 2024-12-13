@@ -1,0 +1,84 @@
+package grid
+
+type GridWidth int
+
+const (
+	One    GridWidth = 1
+	Two    GridWidth = 2
+	Three  GridWidth = 3
+	Four   GridWidth = 4
+	Five   GridWidth = 5
+	Six    GridWidth = 6
+	Seven  GridWidth = 7
+	Eight  GridWidth = 8
+	Nine   GridWidth = 9
+	Ten    GridWidth = 10
+	Eleven GridWidth = 11
+	Twelve GridWidth = 12
+)
+
+type GridItem struct {
+	Width   GridWidth
+	Content templ.Component
+}
+type Props struct {
+	Items []GridItem
+	Gap   string // Tailwind gap class e.g., "gap-4"
+}
+
+// this sucks but tailwind otherwise doesn't compile all of these classes which we need
+func getWidthClass(width GridWidth) string {
+	switch width {
+	case One:
+		return "col-span-1"
+	case Two:
+		return "col-span-2"
+	case Three:
+		return "col-span-3"
+	case Four:
+		return "col-span-4"
+	case Five:
+		return "col-span-5"
+	case Six:
+		return "col-span-6"
+	case Seven:
+		return "col-span-7"
+	case Eight:
+		return "col-span-8"
+	case Nine:
+		return "col-span-9"
+	case Ten:
+		return "col-span-10"
+	case Eleven:
+		return "col-span-11"
+	case Twelve:
+		return "col-span-12"
+	default:
+		return "col-span-12"
+	}
+}
+func getGap(props *Props) string {
+	if props.Gap != "" {
+		return props.Gap
+	}
+	return "gap-8"
+}
+
+//container for rendering items vertically within the grid
+templ RenderVertical(components []templ.Component) {
+	<div class="w-full">
+		for _, item := range components {
+			@item
+		}
+	</div>
+}
+
+templ Render(props *Props) {
+	<div class={ "lg:grid  lg:grid-cols-12 " + getGap(props) }>
+		for _, item := range props.Items {
+			<div class={ getWidthClass(item.Width) }>
+				@item.Content
+			</div>
+		}
+	</div>
+}

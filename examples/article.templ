@@ -1,0 +1,105 @@
+package examples
+
+import (
+	"github.com/JonF12/TemplComponentLib/src/article/heading"
+	"github.com/JonF12/TemplComponentLib/src/article/image"
+	"time"
+	"github.com/JonF12/TemplComponentLib/src/article/text"
+	"github.com/JonF12/TemplComponentLib/internal/helpers"
+	"github.com/JonF12/TemplComponentLib/dist/src/hero"
+	"github.com/JonF12/TemplComponentLib/src/layout/grid"
+)
+
+const testImage1 = "https://i.ytimg.com/vi/52KWQyEker0/maxresdefault.jpg"
+
+templ Article() {
+	@Base() {
+		@hero.Render(&hero.Props{ImageUrl: "https://images.alphacoders.com/535/53563.jpg"})
+		<article>
+			<section>
+				<div class="max-w-6xl px-4 mx-auto">
+					@heading.Render(&heading.Props{
+						Heading:     "Top 10 Best Actors Of All Time",
+						Subheading:  "Read our article to find out our 2024 top picks. ",
+						AuthorName:  "John Smith",
+						PublishDate: time.Now().Format("2006-01-02"),
+						Category:    "Movies",
+					})
+				</div>
+			</section>
+			<section>
+				<div class="max-w-6xl mx-auto px-4">
+					@text.Render(&text.Props{TextContent: helpers.LoremIpsumText})
+					@text.Render(&text.Props{TextContent: helpers.LoremIpsumParagraphs(2)})
+					@text.Render(&text.Props{TextContent: helpers.LoremIpsumText})
+				</div>
+			</section>
+			<section>
+				<div class="max-w-6xl mx-auto px-4">
+					// Two columns 50/50
+					@grid.Render(&grid.Props{
+						Items: []grid.GridItem{
+							{
+								Width: grid.Six,
+								Content: text.Render(&text.Props{
+									Alignment:   text.Left,
+									TextContent: "1" + helpers.LoremIpsumText,
+								}),
+							},
+							{
+								Width: grid.Six,
+								Content: text.Render(&text.Props{
+									Alignment:   text.Left,
+									TextContent: "2" + helpers.LoremIpsumText,
+								}),
+							},
+						},
+					})
+					@image.Render(&image.Props{ImageUrl: testImage1, Caption: "This was crazy man damn son"})
+					// Three columns 33/33/33
+					@grid.Render(&grid.Props{
+						Items: []grid.GridItem{
+							{
+								Width: grid.Four,
+								Content: text.Render(&text.Props{
+									Alignment:   text.Justify,
+									TextContent: "3 <b> testing raw rendering </b>" + helpers.LoremIpsumText,
+									RenderRaw:   true,
+								}),
+							},
+							{
+								Width: grid.Four,
+								Content: text.Render(&text.Props{
+									Alignment:   text.Justify,
+									TextContent: "4" + helpers.LoremIpsumText,
+								}),
+							},
+							{
+								Width: grid.Four,
+								Content: text.Render(&text.Props{
+									Alignment:   text.Justify,
+									TextContent: "5" + helpers.LoremIpsumText,
+								}),
+							},
+						},
+					})
+					@grid.Render(&grid.Props{
+						Items: []grid.GridItem{
+							{
+								Width: grid.Seven,
+								Content: image.Render(&image.Props{
+									ImageUrl: testImage1,
+									Caption:  "This was crazy man damn son",
+								}),
+							},
+							{
+								Width:   grid.Five,
+								Content: text.Render(&text.Props{TextContent: helpers.LoremIpsumText, Alignment: text.Justify}),
+							},
+						},
+					})
+				</div>
+			</section>
+		</article>
+	}
+}
