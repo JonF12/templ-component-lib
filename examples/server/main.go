@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/JonF12/TemplComponentLib/examples"
-	"github.com/JonF12/TemplComponentLib/examples/models"
-	"github.com/JonF12/TemplComponentLib/src/dropzone"
+	"github.com/JonF12/templ-component-lib/examples"
+	"github.com/JonF12/templ-component-lib/examples/models"
+	"github.com/JonF12/templ-component-lib/src/dropzone"
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"

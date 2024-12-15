@@ -1,4 +1,4 @@
-module github.com/JonF12/TemplComponentLib
+module github.com/JonF12/templ-component-lib
 
 go 1.22.1
 

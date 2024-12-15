@@ -1,6 +1,6 @@
 package examples
 
-import "github.com/JonF12/TemplComponentLib/dist/src/searchselect"
+import "github.com/JonF12/templ-component-lib/dist/src/searchselect"
 
 templ Base() {
 	<!DOCTYPE html>
@@ -12,20 +12,15 @@ templ Base() {
 			<link href="assets/css/output.css" rel="stylesheet"/>
 			<script src="assets/js/htmx.min.js"></script>
 			@searchselect.Script()
+			// todo remove and add smart script loading only when module needed
+			//todo figure out how to append canonical urls, title, etc depending on which page the user is on to this template
 			<style>
         html {
           min-height: 100vh;
-          background: linear-gradient(
-            to bottom,
-            #ffffff,
-            #f9fafb,
-            #f3f4f6
+          background: linear-gradient(to bottom,#ffffff,#f9fafb,#f3f4f6
           );
-          box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 
-                      0 4px 6px -4px rgb(0 0 0 / 0.1);
+          box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
-
-        /* Ensure the body takes up full height */
         body {
           min-height: 100vh;
           margin: 0;
