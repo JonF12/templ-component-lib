@@ -9,6 +9,7 @@ import (
 
 	"github.com/JonF12/templ-component-lib/examples"
 	"github.com/JonF12/templ-component-lib/examples/models"
+	"github.com/JonF12/templ-component-lib/src"
 	"github.com/JonF12/templ-component-lib/src/dropzone"
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
@@ -28,10 +29,16 @@ func main() {
 	e.GET("/", renderMain)
 	e.GET("/form", renderForm)
 	e.GET("/article", renderArticle)
+	e.GET("/propstest", propsTest)
 	e.POST("/addcustomer", renderAddCustomer)
 	e.POST("/dropzone-upload", dropzoneUpload)
 	e.DELETE("/dropzone-delete/:id", dropzoneDelete)
 	e.Logger.Fatal(e.Start(":3000"))
+}
+
+func propsTest(c echo.Context) error {
+	res, found := src.GetComponent("searchselect")
+	return c.NoContent(http.StatusOK)
 }
 
 func renderAddCustomer(c echo.Context) error {
