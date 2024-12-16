@@ -9,6 +9,7 @@ import (
 
 	"github.com/JonF12/templ-component-lib/examples"
 	"github.com/JonF12/templ-component-lib/examples/models"
+	"github.com/JonF12/templ-component-lib/src/cms"
 	"github.com/JonF12/templ-component-lib/src/dropzone"
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
@@ -36,7 +37,7 @@ func main() {
 }
 
 func propsTest(c echo.Context) error {
-	// res, found := cms.GetComponent("searchselect")
+	res, found := cms.GetComponent("searchselect")
 	return c.NoContent(http.StatusOK)
 }
 

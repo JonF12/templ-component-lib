@@ -1,9 +1,9 @@
 package cms
 
 import (
-	"github.com/JonF12/templ-component-lib/dist/src/cards/cardimage"
 	"github.com/JonF12/templ-component-lib/src/address"
 	"github.com/JonF12/templ-component-lib/src/cards/card3spot"
+	"github.com/JonF12/templ-component-lib/src/cards/cardimage"
 	"github.com/JonF12/templ-component-lib/src/checkbox"
 	"github.com/JonF12/templ-component-lib/src/dateinput"
 	"github.com/JonF12/templ-component-lib/src/dropzone"
