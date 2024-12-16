@@ -2,14 +2,16 @@ package main
 
 import (
 	"database/sql"
+	"encoding/json"
 	"net/http"
+	"reflect"
 	"strconv"
 	"strings"
 	"time"
 
+	"github.com/JonF12/templ-component-lib/dist/src/cms"
 	"github.com/JonF12/templ-component-lib/examples"
 	"github.com/JonF12/templ-component-lib/examples/models"
-	"github.com/JonF12/templ-component-lib/src/cms"
 	"github.com/JonF12/templ-component-lib/src/dropzone"
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
@@ -38,7 +40,47 @@ func main() {
 
 func propsTest(c echo.Context) error {
 	res, found := cms.GetComponent("searchselect")
-	return c.NoContent(http.StatusOK)
+	// props := &selector.Props{
+	// 	Name:     "field",
+	// 	Required: true,
+	// 	Label:    "test",
+	// 	BaseProps: types.BaseProps{
+	// 		ClassName: "test",
+	// 	},
+	// }
+
+	// Create a new pointer to the same type as PropsType
+	propsValue := reflect.New(reflect.TypeOf(res.PropsType).Elem())
+	newProps := propsValue.Interface()
+	jsonStr := `{
+  "baseProps": {
+    "className": "test-class",
+    "namePrefix": "test",
+    "subheading": "test subheading"
+  },
+  "name": "testName",
+  "label": "Test Label",
+  "disabled": false,
+  "required": true,
+  "helperText": "This is helper text",
+  "value": "current value",
+  "validationText": "Please enter a valid value",
+  "attributes": {
+    "autocomplete": "off",
+    "data-testid": "test-input",
+    "hx-get": "testurl"
+  }
+}`
+	// Unmarshal the JSON properties into the new props instance
+	if err := json.Unmarshal([]byte(jsonStr), newProps); err != nil {
+		return err
+	}
+	c.Logger().Info(res.DisplayText)
+	c.Logger().Info(res.ComponentName)
+	c.Logger().Info(found)
+	c.Response().Header().Set(echo.HeaderContentType, "text/html")
+	return render(c, res.Render(newProps))
+	// return c.NoContent(http.StatusOK)
 }
 
 func renderAddCustomer(c echo.Context) error {
