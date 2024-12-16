@@ -39,7 +39,7 @@ func main() {
 }
 
 func propsTest(c echo.Context) error {
-	res, found := cms.GetComponent("searchselect")
+	res, found := cms.GetComponent("layout/grid")
 	// props := &selector.Props{
 	// 	Name:     "field",
 	// 	Required: true,
@@ -52,34 +52,31 @@ func propsTest(c echo.Context) error {
 	// Create a new pointer to the same type as PropsType
 	propsValue := reflect.New(reflect.TypeOf(res.PropsType).Elem())
 	newProps := propsValue.Interface()
-	jsonStr := `{
-  "baseProps": {
-    "className": "test-class",
-    "namePrefix": "test",
-    "subheading": "test subheading"
-  },
-  "name": "testName",
-  "label": "Test Label",
-  "disabled": false,
-  "required": true,
-  "helperText": "This is helper text",
-  "value": "current value",
-  "validationText": "Please enter a valid value",
-  "attributes": {
-    "autocomplete": "off",
-    "data-testid": "test-input",
-    "hx-get": "testurl"
-  }
+	jsonStr := `
+  {
+  "items": [
+    {
+      "width": 4
+    },
+    {
+      "width": 4
+    },
+    {
+      "width": 4
+    }
+  ],
+  "gap": "gap-4"
 }`
 	// Unmarshal the JSON properties into the new props instance
 	if err := json.Unmarshal([]byte(jsonStr), newProps); err != nil {
+		c.Logger().Error(err)
 		return err
 	}
 	c.Logger().Info(res.DisplayText)
 	c.Logger().Info(res.ComponentName)
 	c.Logger().Info(found)
 	c.Response().Header().Set(echo.HeaderContentType, "text/html")
-	return render(c, res.Render(newProps))
+	return render(c, examples.TestingPage(res.Render(newProps)))
 	// return c.NoContent(http.StatusOK)
 }
 

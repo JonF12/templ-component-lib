@@ -79,8 +79,10 @@ templ RenderVertical(components []templ.Component) {
 templ Render(props *Props) {
 	<div class={ "lg:grid  lg:grid-cols-12 " + getGap(props) }>
 		for _, item := range props.Items {
-			<div class={ getWidthClass(item.Width) }>
-				@item.Content
+			<div data-widgetarea class={ getWidthClass(item.Width) }>
+				if item.Content != nil {
+					@item.Content
+				}
 			</div>
 		}
 	</div>
