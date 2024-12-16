@@ -1,5 +1,7 @@
 package button
 
+import "github.com/JonF12/templ-component-lib/src/types"
+
 type ButtonType int
 
 const (
@@ -10,6 +12,7 @@ const (
 )
 
 type Props struct {
+	types.BaseProps
 	Attributes  templ.Attributes
 	Text        string
 	IsHyperlink bool

@@ -1,5 +1,7 @@
 package text
 
+import "github.com/JonF12/templ-component-lib/src/types"
+
 type Alignment int
 
 const (
@@ -10,6 +12,7 @@ const (
 )
 
 type Props struct {
+	types.BaseProps
 	TextContent string
 	RenderRaw   bool //has to be manually enabled for CMS markdown content, e.g bold, italics etc. Otherwise should always be off
 	Alignment   Alignment
