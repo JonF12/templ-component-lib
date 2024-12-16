@@ -16,12 +16,11 @@ type Props struct {
 	Attributes  templ.Attributes
 	Text        string
 	IsHyperlink bool
-	ClassName   string // Added ClassName field
 }
 
 templ renderPrimary(props *Props) {
 	<button
-		class={ "px-6 py-3 relative text-lg font-medium text-white bg-gray-600 hover:bg-gray-700 rounded-lg shadow-sm mt-4 w-32 transition-colors" + " " + props.ClassName }
+		class={ "px-6 py-3 relative text-lg font-medium text-white bg-gray-600 hover:bg-gray-700 rounded-lg shadow-sm mt-4 w-32 transition-colors" + " " + props.BaseProps.ClassName }
 		{ props.Attributes... }
 	>
 		{ props.Text }
@@ -30,7 +29,7 @@ templ renderPrimary(props *Props) {
 
 templ renderPrimaryHyperlink(props *Props) {
 	<a
-		class={ "px-6 py-3 relative text-lg font-medium text-white bg-gray-600 hover:bg-gray-700 rounded-lg shadow-sm mt-4 w-32 transition-colors" + " " + props.ClassName }
+		class={ "px-6 py-3 relative text-lg font-medium text-white bg-gray-600 hover:bg-gray-700 rounded-lg shadow-sm mt-4 w-32 transition-colors" + " " + props.BaseProps.ClassName }
 		{ props.Attributes... }
 	>
 		{ props.Text }
@@ -39,7 +38,7 @@ templ renderPrimaryHyperlink(props *Props) {
 
 templ renderSecondary(props *Props) {
 	<button
-		class={ "px-8 py-3 relative text-lg font-medium text-gray-800 bg-white hover:bg-gray-50 rounded-full border-2 border-gray-800 transition-colors" + " " + props.ClassName }
+		class={ "px-8 py-3 relative text-lg font-medium text-gray-800 bg-white hover:bg-gray-50 rounded-full border-2 border-gray-800 transition-colors" + " " + props.BaseProps.ClassName }
 		{ props.Attributes... }
 	>
 		{ props.Text }
@@ -48,7 +47,7 @@ templ renderSecondary(props *Props) {
 
 templ renderSecondaryHyperlink(props *Props) {
 	<a
-		class={ "px-8 py-3 relative text-lg font-medium text-gray-800 bg-white hover:bg-gray-50 rounded-full border-2 border-gray-800 transition-colors" + " " + props.ClassName }
+		class={ "px-8 py-3 relative text-lg font-medium text-gray-800 bg-white hover:bg-gray-50 rounded-full border-2 border-gray-800 transition-colors" + " " + props.BaseProps.ClassName }
 		{ props.Attributes... }
 	>
 		{ props.Text }
@@ -57,7 +56,7 @@ templ renderSecondaryHyperlink(props *Props) {
 
 templ renderDanger(props *Props) {
 	<button
-		class={ "px-6 py-3 relative text-lg font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-sm mt-4 w-32 transition-colors" + " " + props.ClassName }
+		class={ "px-6 py-3 relative text-lg font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-sm mt-4 w-32 transition-colors" + " " + props.BaseProps.ClassName }
 		{ props.Attributes... }
 	>
 		{ props.Text }
@@ -66,7 +65,7 @@ templ renderDanger(props *Props) {
 
 templ renderDangerHyperlink(props *Props) {
 	<a
-		class={ "px-6 py-3 relative text-lg font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-sm mt-4 w-32 transition-colors" + " " + props.ClassName }
+		class={ "px-6 py-3 relative text-lg font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-sm mt-4 w-32 transition-colors" + " " + props.BaseProps.ClassName }
 		{ props.Attributes... }
 	>
 		{ props.Text }
@@ -75,7 +74,7 @@ templ renderDangerHyperlink(props *Props) {
 
 templ renderSuccess(props *Props) {
 	<button
-		class={ "px-6 py-3 relative text-lg font-medium text-white bg-green-600 hover:bg-green-700 rounded-lg shadow-sm mt-4 w-32 transition-colors" + " " + props.ClassName }
+		class={ "px-6 py-3 relative text-lg font-medium text-white bg-green-600 hover:bg-green-700 rounded-lg shadow-sm mt-4 w-32 transition-colors" + " " + props.BaseProps.ClassName }
 		{ props.Attributes... }
 	>
 		{ props.Text }
@@ -84,7 +83,7 @@ templ renderSuccess(props *Props) {
 
 templ renderSuccessHyperlink(props *Props) {
 	<a
-		class={ "px-6 py-3 relative text-lg font-medium text-white bg-green-600 hover:bg-green-700 rounded-lg shadow-sm mt-4 w-32 transition-colors" + " " + props.ClassName }
+		class={ "px-6 py-3 relative text-lg font-medium text-white bg-green-600 hover:bg-green-700 rounded-lg shadow-sm mt-4 w-32 transition-colors" + " " + props.BaseProps.ClassName }
 		{ props.Attributes... }
 	>
 		{ props.Text }

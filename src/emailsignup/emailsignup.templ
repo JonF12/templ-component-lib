@@ -50,8 +50,10 @@ templ Render(props *Props) {
 					@button.Render(
 						button.Secondary,
 						&button.Props{
-							Text:      props.ButtonText,
-							ClassName: "uppercase",
+							Text: props.ButtonText,
+							BaseProps: types.BaseProps{
+								ClassName: "uppercase",
+							},
 							Attributes: templ.Attributes{
 								"type": "submit",
 							},
