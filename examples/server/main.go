@@ -31,25 +31,20 @@ func main() {
 	e.GET("/", renderMain)
 	e.GET("/form", renderForm)
 	e.GET("/article", renderArticle)
-	e.GET("/propstest", propsTest)
+	e.GET("/getcomponent", getComponent)
 	e.POST("/addcustomer", renderAddCustomer)
 	e.POST("/dropzone-upload", dropzoneUpload)
 	e.DELETE("/dropzone-delete/:id", dropzoneDelete)
 	e.Logger.Fatal(e.Start(":3000"))
 }
 
-func propsTest(c echo.Context) error {
-	res, found := cms.GetComponent("layout/grid")
-	// props := &selector.Props{
-	// 	Name:     "field",
-	// 	Required: true,
-	// 	Label:    "test",
-	// 	BaseProps: types.BaseProps{
-	// 		ClassName: "test",
-	// 	},
-	// }
+type ComponentRequest struct {
+	ComponentID string          `json:"componentId"`
+	Properties  json.RawMessage `json:"properties"`
+}
 
-	// Create a new pointer to the same type as PropsType
+func getComponent(c echo.Context) error {
+	res, found := cms.GetComponent("layout/grid")
 	propsValue := reflect.New(reflect.TypeOf(res.PropsType).Elem())
 	newProps := propsValue.Interface()
 	jsonStr := `
@@ -67,7 +62,6 @@ func propsTest(c echo.Context) error {
   ],
   "gap": "gap-4"
 }`
-	// Unmarshal the JSON properties into the new props instance
 	if err := json.Unmarshal([]byte(jsonStr), newProps); err != nil {
 		c.Logger().Error(err)
 		return err
@@ -77,7 +71,6 @@ func propsTest(c echo.Context) error {
 	c.Logger().Info(found)
 	c.Response().Header().Set(echo.HeaderContentType, "text/html")
 	return render(c, examples.TestingPage(res.Render(newProps)))
-	// return c.NoContent(http.StatusOK)
 }
 
 func renderAddCustomer(c echo.Context) error {
