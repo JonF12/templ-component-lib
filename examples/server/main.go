@@ -15,6 +15,7 @@ import (
 	"github.com/JonF12/templ-component-lib/src/dropzone"
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/gommon/log"
 )
 
@@ -24,14 +25,14 @@ func render(c echo.Context, component templ.Component) error {
 
 func main() {
 	e := echo.New()
-
+	e.Use(middleware.CORS())
 	fileServer := http.FileServer(http.FS(examples.Files))
 	e.Logger.SetLevel(log.INFO)
 	e.GET("/assets/*", echo.WrapHandler(fileServer))
 	e.GET("/", renderMain)
 	e.GET("/form", renderForm)
 	e.GET("/article", renderArticle)
-	e.GET("/getcomponent", getComponent)
+	e.POST("/getcomponent", getComponent)
 	e.POST("/addcustomer", renderAddCustomer)
 	e.POST("/dropzone-upload", dropzoneUpload)
 	e.DELETE("/dropzone-delete/:id", dropzoneDelete)
@@ -70,7 +71,7 @@ func getComponent(c echo.Context) error {
 	c.Logger().Info(res.ComponentName)
 	c.Logger().Info(found)
 	c.Response().Header().Set(echo.HeaderContentType, "text/html")
-	return render(c, examples.TestingPage(res.Render(newProps)))
+	return render(c, res.Render(newProps))
 }
 
 func renderAddCustomer(c echo.Context) error {
