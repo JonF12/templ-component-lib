@@ -2,7 +2,9 @@
   "name": "webcomponents",
   "version": "1.0.0",
   "scripts": {
-    "css:build": "postcss ./src/main.css -o ./dist/styles.css && cp ./dist/styles.css ./examples/assets/css/output.css"
+    "css:build": "postcss ./src/main.css -o ./dist/styles.css && cp ./dist/styles.css ./examples/assets/css/output.css",
+    "build": "webpack --mode production",
+    "watch": "webpack --watch --mode development"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.15",
@@ -10,6 +12,35 @@
     "postcss": "^8.4.31",
     "postcss-cli": "^10.1.0",
     "postcss-import": "^15.1.0",
-    "tailwindcss": "^3.3.5"
+    "tailwindcss": "^3.3.5",
+    "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
+    "@tiptap/core": "^2.10.4",
+    "@tiptap/extension-code-block-lowlight": "^2.10.4",
+    "@tiptap/extension-color": "^2.10.4",
+    "@tiptap/extension-highlight": "^2.10.4",
+    "@tiptap/extension-image": "^2.10.4",
+    "@tiptap/extension-link": "^2.10.4",
+    "@tiptap/extension-placeholder": "^2.10.4",
+    "@tiptap/extension-table": "^2.10.4",
+    "@tiptap/extension-table-cell": "^2.10.4",
+    "@tiptap/extension-table-header": "^2.10.4",
+    "@tiptap/extension-table-row": "^2.10.4",
+    "@tiptap/extension-task-item": "^2.10.4",
+    "@tiptap/extension-task-list": "^2.10.4",
+    "@tiptap/extension-text-align": "^2.10.4",
+    "@tiptap/extension-typography": "^2.10.4",
+    "@tiptap/extension-underline": "^2.10.4",
+    "@tiptap/pm": "^2.10.4",
+    "@tiptap/react": "^2.10.4",
+    "@tiptap/starter-kit": "^2.10.4",
+    "babel-loader": "^9.2.1",
+    "lowlight": "^3.3.0",
+    "lucide-react": "^0.469.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   }
 }

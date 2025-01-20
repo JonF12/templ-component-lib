@@ -1,7 +1,23 @@
 package examples
 
-templ TestingPage(c templ.Component) {
+import "github.com/JonF12/templ-component-lib/src/cms"
+
+templ GetCustomComponentUI() {
+	<select>
+		for _,v := range cms.GetAllComponents() {
+			<option value={ v.ComponentName }>{ v.DisplayText } </option>
+		}
+	</select>
+}
+
+templ ReactMount(componentName string) {
 	@Base() {
-		@c
+		<main class="mx-auto max-w-6xl">
+			@GetCustomComponentUI()
+			<div
+				data-react-component={ "tiptapeditor" }
+				class="react-mount min-h-lvh"
+			></div>
+		</main>
 	}
 }

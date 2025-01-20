@@ -12,6 +12,7 @@ import (
 	"github.com/JonF12/templ-component-lib/dist/src/cms"
 	"github.com/JonF12/templ-component-lib/examples"
 	"github.com/JonF12/templ-component-lib/examples/models"
+	"github.com/JonF12/templ-component-lib/src/article/heading"
 	"github.com/JonF12/templ-component-lib/src/dropzone"
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
@@ -32,6 +33,8 @@ func main() {
 	e.GET("/", renderMain)
 	e.GET("/form", renderForm)
 	e.GET("/article", renderArticle)
+	e.GET("/test", renderTest)
+	e.GET("/getheading", renderGetHeading)
 	e.POST("/getcomponent", getComponent)
 	e.POST("/addcustomer", renderAddCustomer)
 	e.POST("/dropzone-upload", dropzoneUpload)
@@ -39,9 +42,18 @@ func main() {
 	e.Logger.Fatal(e.Start(":3000"))
 }
 
-type ComponentRequest struct {
-	ComponentID string          `json:"componentId"`
-	Properties  json.RawMessage `json:"properties"`
+func renderTest(c echo.Context) error {
+	return render(c, examples.ReactMount("TipTapEditor"))
+}
+
+func renderGetHeading(c echo.Context) error {
+	return render(c, heading.Render(&heading.Props{
+		Category:    "Test",
+		Heading:     "Something happned today",
+		Subheading:  "Test 123",
+		AuthorName:  "Author",
+		PublishDate: time.Now().Format("2006-1-02"),
+	}))
 }
 
 func getComponent(c echo.Context) error {
